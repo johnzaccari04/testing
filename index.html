@@ -142,11 +142,12 @@
 
         .buttons {
             text-align: center;
-            margin-top: 10px; /* Reduced margin */
-            padding: 10px; /* Reduced padding */
-            background-color: #fff;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f1f1f1;
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
         }
+
 
         .buttons button {
             padding: 10px 20px;
@@ -222,6 +223,11 @@
             background-size: 10px 7px;
         }
 
+        #sourceSelector:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
 
     </style>
 </head>
@@ -233,10 +239,25 @@
 
     <div class="main-content">
         <!-- Dropdown selector + mode display -->
-        <div id="selection-bar" style="padding: 20px; background-color: #fff; display: flex; align-items: center; justify-content: space-between;">
+        <div id="selection-bar" style="padding: 20px; background-color: #f1f1f1; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
             <div>
                 <label for="sourceSelector" style="font-size: 16px; font-weight: bold;">I'm sending guidelines to:</label>
-                <select id="sourceSelector" aria-label="Select source type" style="font-size: 16px; padding: 8px 12px; margin-left: 10px; border-radius: 5px; border: 1px solid #ccc;">
+               <select id="sourceSelector" aria-label="Select source type" style="
+                    font-size: 16px;
+                    padding: 10px 14px;
+                    margin-left: 10px;
+                    border-radius: 6px;
+                    border: 1px solid #ccc;
+                    background-color: #fff;
+                    appearance: none;
+                    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg width=\'12\' height=\'8\' viewBox=\'0 0 12 8\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M1.41 1.58L6 6.17l4.59-4.59L12 3l-6 6-6-6z\' fill=\'%23666\'/%3E%3C/svg%3E');
+                    background-repeat: no-repeat;
+                    background-position: right 10px center;
+                    background-size: 12px 8px;
+                    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+                    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+                    cursor: pointer;
+                ">
                     <option value="business">Business Name</option>
                     <option value="company">Company</option>
                     <option value="agent">Agent</option>
