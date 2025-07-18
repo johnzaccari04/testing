@@ -229,6 +229,14 @@
             box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
         }
 
+        .no-select {
+            user-select: none;       /* Standard */
+            -webkit-user-select: none;  /* Safari */
+            -moz-user-select: none;     /* Firefox */
+            -ms-user-select: none;      /* IE/Edge */
+        }
+
+
     </style>
 </head>
 <body>
@@ -298,7 +306,7 @@
                     item.className = 'guideline-item';
                     item.innerHTML = `
                         <input type="checkbox" id="${guideline.id}" aria-label="Select ${guideline.description}" value="${guideline.description}: ${guideline.link}">
-                        <label for="${guideline.id}">${guideline.description}</label>
+                        <label for="${guideline.id}" class="no-select">${guideline.description}</label>
                         <a href="${guideline.link}" target="_blank">(Link)</a>
                         <span class="copy-symbol" onclick="copySingleGuideline('${guideline.description}: ${guideline.link}')">📄</span>
                         <span class="selection-number"></span>
