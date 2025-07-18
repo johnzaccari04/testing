@@ -1,0 +1,142 @@
+[
+    {
+        "category": "Signing up and using ASIC Connect",
+        "items": [
+            {
+                "id": "guideline1",
+                "description": "How to sign up for an ASIC Connect account",
+                "link": "https://download.asic.gov.au/media/hlifywms/ac_how-to-sign-up-for-an-asic-connect-account.pdf"
+            },
+            {
+                "id": "guideline2",
+                "description": "How to link a business to your ASIC Connect account",
+                "link": "https://download.asic.gov.au/media/he0dmipn/ac_how-to-link-a-business-to-your-asic-connect-account.pdf"
+            },
+            {
+                "id": "guideline3",
+                "description": "How to remove an authorised lodger from a business",
+                "link": "https://download.asic.gov.au/media/jhtn3uov/afs_how-to-remove-an-authorised-lodger-from-a-business.pdf"
+            },
+            {
+                "id": "guideline4",
+                "description": "How to request an ASIC key",
+                "link": "https://download.asic.gov.au/media/qdhhmgd3/ac_how-to-request-an-asic-key_20250709.pdf"
+            }
+        ]
+    },
+    {
+        "category": "Register a business name",
+        "items": [
+            {
+                "id": "guideline6",
+                "description": "How to register a business name for the first time if the holder is an individual (sole trader)",
+                "link": "https://download.asic.gov.au/media/pbfbip3l/bn_how-to-register-a-business-name-if-the-holder-is-an-individual-sole-trader.pdf"
+            },
+            {
+                "id": "guideline7",
+                "description": "How to register a business name if the holder is a company",
+                "link": "https://download.asic.gov.au/media/n4opztck/bn_how-to-register-a-business-name-if-the-holder-is-a-company.pdf"
+            },
+            {
+                "id": "guideline8",
+                "description": "How to register a business name if the holder is a joint venture",
+                "link": "https://download.asic.gov.au/media/ys2dsnwd/bn_how-to-register-a-business-name-if-the-holder-is-a-joint-venture.pdf"
+            },
+            {
+                "id": "guideline9",
+                "description": "How to register a business name if the holder is a partnership",
+                "link": "https://download.asic.gov.au/media/zitj2cvq/bn_how-to-register-a-business-name-if-the-holder-is-a-partnership.pdf"
+            },
+            {
+                "id": "guideline10",
+                "description": "How to register a business name if the holder is a trust",
+                "link": "https://download.asic.gov.au/media/ciwn1au3/bn_how-to-register-a-business-name-if-the-holder-is-a-trust.pdf"
+            }
+        ]
+    },
+    {
+        "category": "Renew your business name",
+        "items": [
+            {
+                "id": "guideline11",
+                "description": "How to renew a business name",
+                "link": "https://download.asic.gov.au/media/4l5hvgzj/bn_how-to-renew-a-business-name.pdf"
+            }
+        ]
+    },
+    {
+        "category": "Change business name details",
+        "items": [
+            {
+                "id": "guideline12",
+                "description": "How to add an ABN to a business name holder",
+                "link": "https://download.asic.gov.au/media/bascxwj4/bn_how-to-add-an-abn-to-a-business-name-holder.pdf"
+            },
+            {
+                "id": "guideline13",
+                "description": "How to add or remove a business name partner",
+                "link": "https://download.asic.gov.au/media/0xeltvf4/bn_how-to-add-or-remove-a-business-name-partner.pdf"
+            },
+            {
+                "id": "guideline14",
+                "description": "How to change your business address",
+                "link": "https://download.asic.gov.au/media/zrtayjpu/bn_how-to-change-your-business-address.pdf"
+            },
+            {
+                "id": "guideline15",
+                "description": "How to change business name holder details (partnership)",
+                "link": "https://download.asic.gov.au/media/ffunnl0x/bn_how-to-change-business-name-holder-details-partnership.pdf"
+            },
+            {
+                "id": "guideline16",
+                "description": "How to change business name holder details (person)",
+                "link": "https://download.asic.gov.au/media/51ap5uwb/bn_how-to-change-business-name-holder-details-person.pdf"
+            },
+            {
+                "id": "guideline17",
+                "description": "How to change business name representative details",
+                "link": "https://download.asic.gov.au/media/x0ihm1ub/bn_how-to-change-business-name-representative-details.pdf"
+            }
+        ]
+    },
+    {
+        "category": "Transferring a business name",
+        "items": [
+            {
+                "id": "guideline18",
+                "description": "How to transfer a business name",
+                "link": "https://download.asic.gov.au/media/uvgnfsg0/bn_how-to-transfer-a-business-name.pdf"
+            },
+            {
+                "id": "guideline19",
+                "description": "How to register a business name with a transfer number",
+                "link": "https://download.asic.gov.au/media/klcmpacl/bn_how-to-register-a-business-name-with-a-transfer-number.pdf"
+            }
+        ]
+    },
+    {
+        "category": "Cancel your business name",
+        "items": [
+            {
+                "id": "guideline20",
+                "description": "How to cancel a business name",
+                "link": "https://download.asic.gov.au/media/bdtfwpdj/bn_how-to-cancel-a-business-name.pdf"
+            }
+        ]
+    },
+    {
+        "category": "Business name searches",
+        "items": [
+            {
+                "id": "guideline21",
+                "description": "Search business name index",
+                "link": "https://download.asic.gov.au/media/1iypgx1n/as_how-to-search-business-name-index.pdf"
+            },
+            {
+                "id": "guideline22",
+                "description": "Check business name availability",
+                "link": "https://download.asic.gov.au/media/ml5feq3m/as_how-to-check-business-name-availability.pdf"
+            }
+        ]
+    }
+]
