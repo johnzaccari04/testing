@@ -368,10 +368,10 @@
 
         async function init() {
             try {
-                const guidelines = await loadJSON('guidelines.json');
+                const guidelines = await loadJSON('business.json');
                 renderGuidelines(guidelines);
 
-                const extraData = await loadJSON('extra-data.json');
+                const extraData = await loadJSON('business-json.json');
                 renderExtraLinks(extraData.extraLinks);
 
                 document.getElementById('copyButton').addEventListener('click', handleCopy);
