@@ -2,253 +2,266 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="robots" content="noindex" />
-  <meta name="author" content="Hawks2025" />
   <title>Guideline Selector</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 20px;
-      background: #f4f6f8;
+      padding: 0;
+      background: #f0f2f5;
     }
 
     .header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 20px;
+      background: #0077cc;
+      color: white;
+      padding: 1em;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
-    .mode-selector {
-      font-size: 18px;
-      margin-bottom: 10px;
+    .dropdown-container {
+      display: flex;
+      justify-content: center;
+      margin: 1em;
     }
 
     select {
-      padding: 6px 12px;
       font-size: 16px;
-      border: 2px solid #ccc;
-      border-radius: 8px;
+      padding: 0.5em;
+      border-radius: 5px;
+      border: 1px solid #aaa;
     }
 
-    .current-mode-display {
+    .mode-heading {
+      text-align: center;
+      font-size: 24px;
       font-weight: bold;
-      padding: 8px 12px;
-      border-radius: 10px;
-      margin-top: 10px;
-      background-color: #e0f7fa;
-      color: #00796b;
-      font-size: 16px;
-      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+      margin: 1em 0;
+      color: #2c3e50;
     }
 
     .guideline-container {
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
+      padding: 1em;
     }
 
-    .guideline-section {
-      background: #ffffff;
-      margin-bottom: 20px;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 0 6px rgba(0,0,0,0.1);
-    }
-
-    .guideline-section h2 {
-      font-size: 20px;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 5px;
+    .category {
+      background: #e0e0e0;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 6px;
+      font-weight: bold;
     }
 
     .guideline-item {
       display: flex;
       align-items: center;
-      margin-bottom: 8px;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
 
-    .guideline-item input[type="checkbox"] {
+    .guideline-item input {
       margin-right: 10px;
     }
 
-    .selection-number {
-      display: none;
-      margin-left: auto;
-      background: #00796b;
-      color: white;
-      border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      text-align: center;
-      line-height: 22px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
     .guideline-item.copying {
-      background: #e0f2f1;
-      padding: 4px;
-      border-radius: 6px;
+      background: #d1ffd1;
+      border-color: #5cb85c;
     }
 
-    .actions {
-      text-align: center;
-      margin-top: 30px;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #2196f3;
+    .selection-number {
+      background: #0077cc;
       color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      padding: 0 6px;
+      border-radius: 50%;
+      margin-left: auto;
+      font-weight: bold;
+      display: none;
     }
 
-    button:hover {
-      background-color: #1976d2;
+    .controls {
+      text-align: center;
+      margin: 1.5em 0;
+    }
+
+    .controls button {
+      padding: 0.7em 1.5em;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      background-color: #e74c3c;
+      color: white;
+      cursor: pointer;
     }
 
     .loading {
       text-align: center;
+      margin-top: 2em;
       font-size: 18px;
-      margin-top: 40px;
-      color: #888;
+      color: #555;
     }
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="mode-selector">
-      I'm sending links for
-      <select id="modeDropdown">
-        <option value="business">Business Name</option>
-        <option value="company">Company</option>
-        <option value="agent">Agent</option>
-      </select>
-    </div>
-    <div class="current-mode-display" id="currentModeDisplay">Business Name Mode</div>
+    <h1>Guideline Selector</h1>
   </div>
 
-  <div class="guideline-container">
-    <div class="loading">Loading guidelines...</div>
+  <div class="dropdown-container">
+    <label for="modeSelect" style="margin-right: 0.5em; font-weight: bold;">I'm sending links for</label>
+    <select id="modeSelect">
+      <option value="business">Business Name Mode</option>
+      <option value="company">Company Mode</option>
+      <option value="agent">Agent Mode</option>
+    </select>
   </div>
 
-  <div class="actions">
-    <button onclick="handleClear()">Clear Selections</button>
+  <div class="mode-heading" id="modeHeading">Business Name Mode</div>
+
+  <div class="guideline-container"></div>
+
+  <div class="controls">
+    <button id="clearButton">Clear Selection</button>
   </div>
 
   <script>
+    const guidelineContainer = document.querySelector('.guideline-container');
+    const clearButton = document.getElementById('clearButton');
+    const modeSelect = document.getElementById('modeSelect');
+    const modeHeading = document.getElementById('modeHeading');
+
     let currentMode = 'business';
     let selectedOrder = [];
 
-    const modeDropdown = document.getElementById('modeDropdown');
-    const currentModeDisplay = document.getElementById('currentModeDisplay');
-
-    modeDropdown.addEventListener('change', () => {
-      currentMode = modeDropdown.value;
-      updateCurrentModeDisplay();
-      clearContent();
-      loadData(currentMode);
-    });
-
-    function updateCurrentModeDisplay() {
-      const modeName = {
-        business: 'Business Name Mode',
-        company: 'Company Mode',
-        agent: 'Agent Mode'
-      };
-      currentModeDisplay.textContent = modeName[currentMode];
+    function updateModeHeading() {
+      modeHeading.textContent =
+        currentMode === 'business' ? 'Business Name Mode' :
+        currentMode === 'company' ? 'Company Mode' :
+        'Agent Mode';
     }
 
     function clearContent() {
-      document.querySelector('.guideline-container').innerHTML = '';
-    }
-
-    function handleClear() {
-      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.checked = false;
-        const item = checkbox.closest('.guideline-item');
-        item.classList.remove('copying');
-        const number = item.querySelector('.selection-number');
-        number.textContent = '';
-        number.style.display = 'none';
-      });
+      guidelineContainer.innerHTML = '';
       selectedOrder = [];
     }
 
+    function createGuidelineItem(item) {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'guideline-item';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+
+      const label = document.createElement('label');
+      label.textContent = item.description;
+      label.style.cursor = 'pointer';
+      label.style.flex = '1';
+
+      const numberSpan = document.createElement('span');
+      numberSpan.className = 'selection-number';
+
+      itemDiv.appendChild(checkbox);
+      itemDiv.appendChild(label);
+      itemDiv.appendChild(numberSpan);
+
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+          navigator.clipboard.writeText(item.link);
+          selectedOrder.push(item.id);
+          itemDiv.classList.add('copying');
+        } else {
+          selectedOrder = selectedOrder.filter(id => id !== item.id);
+          itemDiv.classList.remove('copying');
+        }
+        updateNumbers();
+      });
+
+      return itemDiv;
+    }
+
+    function updateNumbers() {
+      const items = document.querySelectorAll('.guideline-item');
+      items.forEach(item => {
+        const checkbox = item.querySelector('input');
+        const numberSpan = item.querySelector('.selection-number');
+        const labelText = item.querySelector('label').textContent;
+
+        if (checkbox.checked) {
+          const id = labelText;
+          const index = selectedOrder.indexOf(item.querySelector('input').nextSibling.textContent);
+          numberSpan.textContent = index + 1;
+          numberSpan.style.display = 'inline-block';
+        } else {
+          numberSpan.textContent = '';
+          numberSpan.style.display = 'none';
+        }
+      });
+    }
+
     async function loadData(mode) {
-      const mainFile = `${mode}-links.txt`;
-      const extraFile = `${mode}-extra.txt`;
+      clearContent();
+
+      const linkFile = `${mode}-links.json`;
+      const extraFile = `${mode}-extra.json`;
 
       try {
-        const [mainResponse, extraResponse] = await Promise.all([
-          fetch(mainFile),
+        const [linksRes, extraRes] = await Promise.all([
+          fetch(linkFile),
           fetch(extraFile)
         ]);
 
-        const mainText = await mainResponse.text();
-        const extraText = await extraResponse.text();
+        if (!linksRes.ok || !extraRes.ok) throw new Error("Failed to fetch");
 
-        const mainLines = mainText.trim().split('\n').filter(line => line.trim() !== '');
-        const extraLines = extraText.trim().split('\n').filter(line => line.trim() !== '');
+        const linkData = await linksRes.json();
+        const extraData = await extraRes.json();
 
-        const guidelineHTML = (title, lines) => {
-          const items = lines.map(line => `
-            <div class="guideline-item">
-              <input type="checkbox" onchange="handleCheckboxChange(this)">
-              <label>${line}</label>
-              <div class="selection-number"></div>
-            </div>`).join('');
+        const combined = [...linkData, ...extraData];
 
-          return `<div class="guideline-section"><h2>${title}</h2>${items}</div>`;
-        };
+        combined.forEach(category => {
+          const categoryDiv = document.createElement('div');
+          categoryDiv.className = 'category';
+          categoryDiv.textContent = category.category;
+          guidelineContainer.appendChild(categoryDiv);
 
-        document.querySelector('.guideline-container').innerHTML =
-          guidelineHTML("Main Links", mainLines) + guidelineHTML("Extra Links", extraLines);
-
-      } catch (error) {
-        console.error('Error loading data:', error);
-        document.querySelector('.guideline-container').innerHTML = '<div class="loading">Failed to load guidelines</div>';
-      }
-    }
-
-    function handleCheckboxChange(checkbox) {
-      const item = checkbox.closest('.guideline-item');
-      const number = item.querySelector('.selection-number');
-
-      if (checkbox.checked) {
-        selectedOrder.push(item);
-        number.textContent = selectedOrder.length;
-        number.style.display = 'inline-block';
-        item.classList.add('copying');
-      } else {
-        const index = selectedOrder.indexOf(item);
-        if (index > -1) {
-          selectedOrder.splice(index, 1);
-          item.classList.remove('copying');
-          number.textContent = '';
-          number.style.display = 'none';
-
-          // Recalculate numbering
-          selectedOrder.forEach((el, i) => {
-            const num = el.querySelector('.selection-number');
-            num.textContent = i + 1;
+          category.items.forEach(item => {
+            const itemDiv = createGuidelineItem(item);
+            guidelineContainer.appendChild(itemDiv);
           });
-        }
+        });
+      } catch (error) {
+        console.error('Failed to load data:', error);
+        guidelineContainer.innerHTML = '<div class="loading">Failed to load guidelines</div>';
       }
     }
 
-    function init() {
-      updateCurrentModeDisplay();
+    modeSelect.addEventListener('change', () => {
+      currentMode = modeSelect.value;
+      updateModeHeading();
       loadData(currentMode);
-    }
+    });
 
-    init();
+    clearButton.addEventListener('click', () => {
+      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+        checkbox.closest('.guideline-item').classList.remove('copying');
+        checkbox.closest('.guideline-item').querySelector('.selection-number').style.display = 'none';
+      });
+      selectedOrder = [];
+    });
+
+    // Initial load
+    updateModeHeading();
+    loadData(currentMode);
   </script>
 </body>
 </html>
