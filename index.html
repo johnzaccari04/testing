@@ -212,6 +212,17 @@
             margin-left: 10px;
             cursor: pointer;
         }
+
+        #sourceSelector {
+            appearance: none;
+            background-color: #f9f9f9;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='10' height='7' viewBox='0 0 10 7' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23999' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 10px 7px;
+        }
+
+
     </style>
 </head>
 <body>
@@ -221,21 +232,30 @@
     </div>
 
     <div class="main-content">
-        <div style="padding: 20px; background-color: #fff;">
-            <label for="sourceSelector"><strong>Select Type:</strong></label>
-            <select id="sourceSelector" aria-label="Select source type">
-                <option value="business">Business</option>
-                <option value="company">Company</option>
-                <option value="agent">Agent</option>
-            </select>
+        <!-- Dropdown selector + mode display -->
+        <div id="selection-bar" style="padding: 20px; background-color: #fff; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+                <label for="sourceSelector" style="font-size: 16px; font-weight: bold;">I'm sending guidelines to:</label>
+                <select id="sourceSelector" aria-label="Select source type" style="font-size: 16px; padding: 8px 12px; margin-left: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                    <option value="business">Business Name</option>
+                    <option value="company">Company</option>
+                    <option value="agent">Agent</option>
+                </select>
+            </div>
+            <div id="modeDisplay" style="font-size: 16px; color: green; font-weight: bold;">Business Name Mode</div>
         </div>
+
+        <!-- Guidelines will load here -->
         <div class="guideline-container"></div>
+
+        <!-- Copy/Clear buttons -->
         <div class="buttons">
             <button id="copyButton" aria-label="Copy selected guidelines">Copy Selected Guidelines</button>
             <button id="clearButton" aria-label="Clear selection">Clear Selection</button>
         </div>
     </div>
 
+    <!-- Toast message -->
     <div id="toast" class="toast">Copied to clipboard!</div>
 
     <script>
@@ -397,10 +417,20 @@
 
 function handleSelectionChange() {
     const selectedType = document.getElementById('sourceSelector').value;
-    selectedOrder = []; // Clear selected items on change
-    handleClear(); // Reset any selections
+    selectedOrder = [];
+    handleClear();
     loadData(selectedType);
+
+    const modeDisplay = document.getElementById('modeDisplay');
+    if (selectedType === 'business') {
+        modeDisplay.textContent = "Business Name Mode";
+    } else if (selectedType === 'company') {
+        modeDisplay.textContent = "Company Mode";
+    } else if (selectedType === 'agent') {
+        modeDisplay.textContent = "Agent Mode";
+    }
 }
+
 
 function init() {
     document.getElementById('sourceSelector').addEventListener('change', handleSelectionChange);
