@@ -3,139 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASIC Quick Links</title>
+    <title>Guideline Selector</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
+            display: flex;
+            background-color: #f4f4f4;
             color: #333;
         }
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-        .sidebar {
-            width: 200px;
+        .left-pane {
+            width: 160px;
             background-color: #2c3e50;
-            color: white;
-            padding: 20px 0;
+            color: #fff;
+            padding: 10px;
         }
-        .sidebar h2 {
+        .left-pane h2 {
             font-size: 16px;
             text-align: center;
-            margin: 0 0 20px;
-            padding: 0 10px;
+            margin: 0 0 10px;
         }
-        .sidebar ul {
+        .left-pane ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-        .sidebar li {
-            padding: 8px 15px;
-            border-bottom: 1px solid #34495e;
-        }
-        .sidebar a {
-            color: white;
+        .left-pane ul li a {
+            color: #fff;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             display: block;
-        }
-        .sidebar a:hover {
-            color: #3498db;
+            padding: 5px;
         }
         .main-content {
             flex: 1;
-            padding: 20px;
-            max-width: 800px;
+            padding: 10px;
+            max-width: 580px;
             margin: 0 auto;
         }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            background-color: white;
-            padding: 15px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .mode-selector {
-            display: flex;
-            align-items: center;
-        }
-        .mode-selector label {
-            margin-right: 10px;
-            font-size: 14px;
-        }
-        .mode-selector select {
-            padding: 5px 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .current-mode {
-            margin-left: 15px;
-            font-weight: bold;
-            color: #3498db;
-            font-size: 14px;
-        }
         .guideline-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-bottom: 80px;
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 60px; /* Space for fixed buttons */
         }
         .category-title {
-            font-size: 16px;
+            font-size: 18px;
             color: #3498db;
-            margin: 20px 0 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #eee;
+            margin: 10px 0;
         }
         .guideline-item {
             display: flex;
             align-items: center;
-            padding: 8px 0;
-            font-size: 14px;
+            padding: 8px;
+            font-size: 13px;
         }
         .guideline-item input[type="checkbox"] {
-            margin-right: 10px;
+            margin-right: 8px;
         }
         .guideline-item label {
             flex: 1;
-            cursor: pointer;
         }
         .guideline-item a {
             color: #3498db;
             text-decoration: none;
-            margin-left: 10px;
-            font-size: 13px;
         }
-        .guideline-item a:hover {
-            text-decoration: underline;
-        }
-        .action-buttons {
+        .buttons {
             position: fixed;
             bottom: 0;
-            left: 200px;
+            left: 0;
             right: 0;
-            background-color: white;
-            padding: 15px;
-            box-shadow: 0 -1px 3px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+            text-align: center;
+            padding: 10px;
+            background-color: #fff;
         }
-        .action-buttons button {
-            padding: 8px 20px;
-            font-size: 14px;
+        .buttons button {
+            padding: 8px 16px;
+            font-size: 13px;
             border: none;
-            border-radius: 4px;
+            border-radius: 3px;
             cursor: pointer;
+            margin: 0 5px;
         }
         #copyButton {
             background-color: #3498db;
@@ -146,268 +93,84 @@
             color: white;
         }
         .toast {
-            position: fixed;
-            bottom: 70px;
-            left: 50%;
-            transform: translateX(-50%);
+            display: none;
             background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 4px;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 100;
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            border-radius: 3px;
+            margin: 10px auto;
+            width: 180px;
+            font-size: 13px;
         }
         .toast.show {
-            opacity: 1;
-        }
-        .toast.success {
-            background-color: #27ae60;
-        }
-        .toast.error {
-            background-color: #e74c3c;
-        }
-        .toast.warning {
-            background-color: #f39c12;
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <h2>Extra Links</h2>
-            <ul id="extra-links"></ul>
-        </div>
-        <div class="main-content">
-            <div class="header">
-                <h1>ASIC Quick Links</h1>
-                <div class="mode-selector">
-                    <label for="modeSelector">I'm sending guidelines for:</label>
-                    <select id="modeSelector">
-                        <option value="business">Business Name</option>
-                        <option value="company">Company</option>
-                        <option value="agent">Agent</option>
-                    </select>
-                    <span class="current-mode" id="modeIndicator">Business Name Mode</span>
-                </div>
-            </div>
-            <div class="guideline-container" id="guidelineContainer">
-                <!-- Guidelines will be loaded here dynamically -->
-            </div>
-        </div>
-        <div class="action-buttons">
-            <button id="copyButton">Copy Selected</button>
-            <button id="clearButton">Clear Selection</button>
+    <div class="left-pane">
+        <h2>Extra Links</h2>
+        <ul id="extra-links"></ul>
+    </div>
+    <div class="main-content">
+        <div class="guideline-container"></div>
+        <div class="buttons">
+            <button id="copyButton" aria-label="Copy selected guidelines">Copy Selected</button>
+            <button id="clearButton" aria-label="Clear selection">Clear Selection</button>
         </div>
         <div id="toast" class="toast"></div>
     </div>
-
     <script>
-        // Application state
-        const state = {
-            currentMode: 'business',
-            modes: {
-                business: {
-                    name: 'Business Name',
-                    linksFile: 'business-links.json',
-                    extraFile: 'business-extra.json'
-                },
-                company: {
-                    name: 'Company',
-                    linksFile: 'company-links.json',
-                    extraFile: 'company-extra.json'
-                },
-                agent: {
-                    name: 'Agent',
-                    linksFile: 'agent-links.json',
-                    extraFile: 'agent-extra.json'
-                }
-            }
-        };
-
-        // DOM elements
-        const elements = {
-            modeSelector: document.getElementById('modeSelector'),
-            modeIndicator: document.getElementById('modeIndicator'),
-            guidelineContainer: document.getElementById('guidelineContainer'),
-            extraLinksContainer: document.getElementById('extra-links'),
-            copyButton: document.getElementById('copyButton'),
-            clearButton: document.getElementById('clearButton'),
-            toast: document.getElementById('toast')
-        };
-
-        // Initialize the application
         async function init() {
-            setupEventListeners();
-            await loadModeData(state.currentMode);
-        }
-
-        // Set up event listeners
-        function setupEventListeners() {
-            elements.modeSelector.addEventListener('change', handleModeChange);
-            elements.copyButton.addEventListener('click', handleCopy);
-            elements.clearButton.addEventListener('click', handleClear);
-        }
-
-        // Handle mode change
-        async function handleModeChange(event) {
-            state.currentMode = event.target.value;
-            await loadModeData(state.currentMode);
-        }
-
-        // Load data for the selected mode
-        async function loadModeData(mode) {
             try {
-                showLoading();
-                const modeInfo = state.modes[mode];
-                elements.modeIndicator.textContent = `${modeInfo.name} Mode`;
-                
-                const [guidelines, extraLinks] = await Promise.all([
-                    fetchData(modeInfo.linksFile),
-                    fetchData(modeInfo.extraFile)
-                ]);
-                
-                renderGuidelines(guidelines);
-                renderExtraLinks(extraLinks);
-            } catch (error) {
-                console.error('Error loading data:', error);
-                showToast('Failed to load data!', 'error');
-            }
-        }
-
-        // Fetch JSON data
-        async function fetchData(file) {
-            const response = await fetch(file);
-            if (!response.ok) throw new Error(`Failed to load ${file}`);
-            return await response.json();
-        }
-
-        // Render guidelines
-        function renderGuidelines(guidelines) {
-            elements.guidelineContainer.innerHTML = '';
-            
-            if (!Array.isArray(guidelines)) {
-                console.error('Invalid guidelines data:', guidelines);
-                return;
-            }
-            
-            guidelines.forEach(category => {
-                const categoryTitle = document.createElement('div');
-                categoryTitle.className = 'category-title';
-                categoryTitle.textContent = category.category;
-                elements.guidelineContainer.appendChild(categoryTitle);
-                
-                category.items.forEach(item => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'guideline-item';
-                    
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.id = item.id;
-                    checkbox.value = `${item.description}: ${item.link}`;
-                    
-                    const label = document.createElement('label');
-                    label.htmlFor = item.id;
-                    label.textContent = item.description;
-                    
-                    const link = document.createElement('a');
-                    link.href = item.link;
-                    link.target = '_blank';
-                    link.textContent = '(Link)';
-                    
-                    itemDiv.appendChild(checkbox);
-                    itemDiv.appendChild(label);
-                    itemDiv.appendChild(link);
-                    elements.guidelineContainer.appendChild(itemDiv);
+                const guidelines = await (await fetch('guidelines.json')).json();
+                const extraData = await (await fetch('extra-data.json')).json();
+                const container = document.querySelector('.guideline-container');
+                guidelines.forEach(category => {
+                    container.innerHTML += `<div class="category-title">${category.category}</div>`;
+                    category.items.forEach(guideline => {
+                        container.innerHTML += `
+                            <div class="guideline-item">
+                                <input type="checkbox" id="${guideline.id}" value="${guideline.description}: ${guideline.link}">
+                                <label for="${guideline.id}">${guideline.description}</label>
+                                <a href="${guideline.link}" target="_blank">(Link)</a>
+                            </div>`;
+                    });
                 });
-            });
-        }
-
-        // Render extra links
-        function renderExtraLinks(extraData) {
-            elements.extraLinksContainer.innerHTML = '';
-            
-            if (!extraData?.extraLinks) {
-                console.error('Invalid extra links data:', extraData);
-                return;
-            }
-            
-            extraData.extraLinks.forEach(link => {
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = link.link;
-                a.target = '_blank';
-                a.textContent = link.name;
-                li.appendChild(a);
-                elements.extraLinksContainer.appendChild(li);
-            });
-        }
-
-        // Handle copy button click
-        async function handleCopy() {
-            const checkedItems = document.querySelectorAll('.guideline-item input:checked');
-            
-            if (checkedItems.length === 0) {
-                showToast('No guidelines selected!', 'warning');
-                return;
-            }
-            
-            try {
-                const itemsHtml = Array.from(checkedItems)
-                    .map((item, index) => {
-                        const [desc, link] = item.value.split(': ');
-                        return `${index + 1}. <a href="${link.trim()}" target="_blank">${desc}</a>`;
-                    })
-                    .join('<br>');
-                
-                await navigator.clipboard.write([
-                    new ClipboardItem({
-                        'text/html': new Blob([itemsHtml], { type: 'text/html' })
-                    })
-                ]);
-                
-                showToast(`${checkedItems.length} guideline(s) copied!`, 'success');
-            } catch (error) {
-                console.error('Copy failed:', error);
-                showToast('Failed to copy!', 'error');
+                const extraContainer = document.querySelector('#extra-links');
+                extraData.extraLinks.forEach(link => {
+                    extraContainer.innerHTML += `<li><a href="${link.link}" target="_blank">${link.name}</a></li>`;
+                });
+                document.getElementById('copyButton').onclick = () => {
+                    const checked = document.querySelectorAll('.guideline-item input:checked');
+                    const toast = document.getElementById('toast');
+                    if (checked.length === 0) {
+                        toast.textContent = 'No guidelines selected!';
+                        toast.classList.add('show');
+                        setTimeout(() => toast.classList.remove('show'), 1500);
+                        return;
+                    }
+                    const html = Array.from(checked).map((cb, i) => {
+                        const [desc, link] = cb.value.split(': ');
+                        return `${i + 1}. <a href="${link}" target="_blank">${desc}</a>`;
+                    }).join('<br>');
+                    navigator.clipboard.write([new ClipboardItem({
+                        'text/html': new Blob([html], { type: 'text/html' })
+                    })]);
+                    toast.textContent = `${checked.length} guideline(s) copied!`;
+                    toast.classList.add('show');
+                    setTimeout(() => toast.classList.remove('show'), 1500);
+                };
+                document.getElementById('clearButton').onclick = () => {
+                    document.querySelectorAll('.guideline-item input').forEach(cb => cb.checked = false);
+                };
+            } catch (e) {
+                document.getElementById('toast').textContent = 'Failed to load data!';
+                document.getElementById('toast').classList.add('show');
             }
         }
-
-        // Handle clear button click
-        function handleClear() {
-            document.querySelectorAll('.guideline-item input').forEach(checkbox => {
-                checkbox.checked = false;
-            });
-            showToast('Selection cleared', 'info');
-        }
-
-        // Show toast message
-        function showToast(message, type = 'info') {
-            elements.toast.textContent = message;
-            elements.toast.className = 'toast show';
-            
-            // Remove any existing type classes
-            elements.toast.classList.remove('success', 'error', 'warning', 'info');
-            
-            // Add the appropriate type class
-            if (type !== 'info') {
-                elements.toast.classList.add(type);
-            }
-            
-            // Hide after delay
-            setTimeout(() => {
-                elements.toast.classList.remove('show');
-            }, 2500);
-        }
-
-        // Show loading state
-        function showLoading() {
-            elements.guidelineContainer.innerHTML = '<div style="text-align: center; padding: 20px;">Loading guidelines...</div>';
-        }
-
-        // Initialize the app when DOM is loaded
-        document.addEventListener('DOMContentLoaded', init);
+        init();
     </script>
 </body>
 </html>
