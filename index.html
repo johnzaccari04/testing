@@ -307,8 +307,8 @@
                     item.innerHTML = `
                         <input type="checkbox" id="${guideline.id}" aria-label="Select ${guideline.description}" value="${guideline.description}: ${guideline.link}">
                         <label for="${guideline.id}" class="no-select">${guideline.description}</label>
-                        <a href="${guideline.link}" target="_blank">(Link)</a>
-                        <span class="copy-symbol" onclick="copySingleGuideline('${guideline.description}: ${guideline.link}')">📄</span>
+                        <a href="${guideline.link}" target="_blank" class="no-select">(Link)</a>
+                        <span class="copy-symbol no-select" onclick="copySingleGuideline('${guideline.description}: ${guideline.link}')">📄</span>
                         <span class="selection-number"></span>
                     `;
                     container.appendChild(item);
