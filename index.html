@@ -44,7 +44,7 @@
         .guideline-container {
             background-color: #fff;
             padding: 10px;
-            margin-bottom: 60px; /* Space for fixed buttons */
+            margin-bottom: 60px;
         }
         .category-title {
             font-size: 18px;
@@ -106,6 +106,13 @@
         .toast.show {
             display: block;
         }
+        .debug-info {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -114,6 +121,7 @@
         <ul id="extra-links"></ul>
     </div>
     <div class="main-content">
+        <div id="debug-info" class="debug-info">Loading...</div>
         <div class="guideline-container"></div>
         <div class="buttons">
             <button id="copyButton" aria-label="Copy selected guidelines">Copy Selected</button>
@@ -122,15 +130,47 @@
         <div id="toast" class="toast"></div>
     </div>
     <script>
+        function showDebug(message) {
+            const debugDiv = document.getElementById('debug-info');
+            debugDiv.innerHTML += message + '<br>';
+            console.log(message);
+        }
+
         async function init() {
             try {
-                const guidelines = await (await fetch('guidelines.json')).json();
-                const extraData = await (await fetch('extra-data.json')).json();
+                showDebug('Starting initialization...');
+                
+                // Test if fetch works
+                showDebug('Attempting to fetch guidelines.json...');
+                const guidelinesResponse = await fetch('guidelines.json');
+                showDebug(`Guidelines response status: ${guidelinesResponse.status}`);
+                
+                if (!guidelinesResponse.ok) {
+                    throw new Error(`Failed to fetch guidelines: ${guidelinesResponse.status}`);
+                }
+                
+                const guidelines = await guidelinesResponse.json();
+                showDebug(`Guidelines loaded: ${guidelines.length} categories`);
+                
+                showDebug('Attempting to fetch extra-data.json...');
+                const extraDataResponse = await fetch('extra-data.json');
+                showDebug(`Extra data response status: ${extraDataResponse.status}`);
+                
+                if (!extraDataResponse.ok) {
+                    throw new Error(`Failed to fetch extra data: ${extraDataResponse.status}`);
+                }
+                
+                const extraData = await extraDataResponse.json();
+                showDebug(`Extra links loaded: ${extraData.extraLinks.length} links`);
+                
+                // Build guidelines
                 const container = document.querySelector('.guideline-container');
+                let htmlContent = '';
+                
                 guidelines.forEach(category => {
-                    container.innerHTML += `<div class="category-title">${category.category}</div>`;
+                    htmlContent += `<div class="category-title">${category.category}</div>`;
                     category.items.forEach(guideline => {
-                        container.innerHTML += `
+                        htmlContent += `
                             <div class="guideline-item">
                                 <input type="checkbox" id="${guideline.id}" value="${guideline.description}: ${guideline.link}">
                                 <label for="${guideline.id}">${guideline.description}</label>
@@ -138,39 +178,103 @@
                             </div>`;
                     });
                 });
+                
+                container.innerHTML = htmlContent;
+                showDebug('Guidelines rendered successfully');
+                
+                // Build extra links
                 const extraContainer = document.querySelector('#extra-links');
+                let extraLinksHtml = '';
+                
                 extraData.extraLinks.forEach(link => {
-                    extraContainer.innerHTML += `<li><a href="${link.link}" target="_blank">${link.name}</a></li>`;
+                    extraLinksHtml += `<li><a href="${link.link}" target="_blank">${link.name}</a></li>`;
                 });
-                document.getElementById('copyButton').onclick = () => {
+                
+                extraContainer.innerHTML = extraLinksHtml;
+                showDebug('Extra links rendered successfully');
+                
+                // Set up button handlers
+                document.getElementById('copyButton').onclick = function() {
+                    showDebug('Copy button clicked');
                     const checked = document.querySelectorAll('.guideline-item input:checked');
                     const toast = document.getElementById('toast');
+                    
                     if (checked.length === 0) {
+                        showDebug('No guidelines selected');
                         toast.textContent = 'No guidelines selected!';
                         toast.classList.add('show');
                         setTimeout(() => toast.classList.remove('show'), 1500);
                         return;
                     }
-                    const html = Array.from(checked).map((cb, i) => {
+                    
+                    showDebug(`Copying ${checked.length} guidelines`);
+                    
+                    // Try the simple text copy first
+                    const textContent = Array.from(checked).map((cb, i) => {
                         const [desc, link] = cb.value.split(': ');
-                        return `${i + 1}. <a href="${link}" target="_blank">${desc}</a>`;
-                    }).join('<br>');
-                    navigator.clipboard.write([new ClipboardItem({
-                        'text/html': new Blob([html], { type: 'text/html' })
-                    })]);
-                    toast.textContent = `${checked.length} guideline(s) copied!`;
-                    toast.classList.add('show');
-                    setTimeout(() => toast.classList.remove('show'), 1500);
+                        return `${i + 1}. ${desc}: ${link}`;
+                    }).join('\n');
+                    
+                    // Try different clipboard methods
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(textContent).then(() => {
+                            showDebug('Text copied successfully');
+                            toast.textContent = `${checked.length} guideline(s) copied!`;
+                            toast.classList.add('show');
+                            setTimeout(() => toast.classList.remove('show'), 1500);
+                        }).catch(err => {
+                            showDebug(`Clipboard error: ${err.message}`);
+                            fallbackCopy(textContent);
+                        });
+                    } else {
+                        showDebug('Clipboard API not available, using fallback');
+                        fallbackCopy(textContent);
+                    }
                 };
-                document.getElementById('clearButton').onclick = () => {
+                
+                document.getElementById('clearButton').onclick = function() {
+                    showDebug('Clear button clicked');
                     document.querySelectorAll('.guideline-item input').forEach(cb => cb.checked = false);
+                    showDebug('Selection cleared');
                 };
+                
+                showDebug('Initialization complete!');
+                
             } catch (e) {
+                showDebug(`Error: ${e.message}`);
+                console.error('Full error:', e);
                 document.getElementById('toast').textContent = 'Failed to load data!';
                 document.getElementById('toast').classList.add('show');
             }
         }
-        init();
+        
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showDebug('Fallback copy successful');
+                const toast = document.getElementById('toast');
+                toast.textContent = 'Guidelines copied!';
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 1500);
+            } catch (err) {
+                showDebug(`Fallback copy failed: ${err.message}`);
+                alert('Copy failed. Please copy manually.');
+            }
+            
+            document.body.removeChild(textarea);
+        }
+        
+        // Start initialization when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
     </script>
 </body>
 </html>
