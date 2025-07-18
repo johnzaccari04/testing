@@ -3,265 +3,240 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="robots" content="noindex" />
   <title>Guideline Selector</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f0f2f5;
-    }
-
-    .header {
-      background: #0077cc;
-      color: white;
-      padding: 1em;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .dropdown-container {
       display: flex;
-      justify-content: center;
-      margin: 1em;
+      flex-direction: column;
+      background-color: #f4f4f4;
+      color: #333;
+      height: 100vh;
     }
-
-    select {
-      font-size: 16px;
-      padding: 0.5em;
-      border-radius: 5px;
-      border: 1px solid #aaa;
-    }
-
-    .mode-heading {
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      margin: 1em 0;
-      color: #2c3e50;
-    }
-
-    .guideline-container {
-      max-width: 900px;
-      margin: auto;
-      padding: 1em;
-    }
-
-    .category {
-      background: #e0e0e0;
+    .top-pane {
+      background-color: #3498db;
       padding: 10px;
-      margin-top: 20px;
-      border-radius: 6px;
-      font-weight: bold;
+      color: white;
+      font-size: 14px;
     }
-
+    .top-pane select {
+      margin-left: 10px;
+      padding: 5px;
+      font-size: 14px;
+    }
+    .content-wrapper {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+    .left-pane {
+      width: 160px;
+      background-color: #2c3e50;
+      color: #fff;
+      padding: 10px;
+      overflow-y: auto;
+    }
+    .left-pane h2 {
+      font-size: 16px;
+      text-align: center;
+      margin: 0 0 10px;
+    }
+    .left-pane ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .left-pane ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      display: block;
+      padding: 5px;
+    }
+    .main-content {
+      flex: 1;
+      padding: 10px;
+      max-width: 580px;
+      margin: 0 auto;
+      overflow-y: auto;
+    }
+    .guideline-container {
+      background-color: #fff;
+      padding: 10px;
+      margin-bottom: 60px;
+    }
+    .category-title {
+      font-size: 18px;
+      color: #3498db;
+      margin: 10px 0;
+    }
     .guideline-item {
       display: flex;
       align-items: center;
-      background: white;
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s ease;
+      padding: 8px;
+      font-size: 13px;
     }
-
-    .guideline-item input {
-      margin-right: 10px;
+    .guideline-item input[type="checkbox"] {
+      margin-right: 8px;
     }
-
-    .guideline-item.copying {
-      background: #d1ffd1;
-      border-color: #5cb85c;
+    .guideline-item label {
+      flex: 1;
     }
-
-    .selection-number {
-      background: #0077cc;
-      color: white;
-      padding: 0 6px;
-      border-radius: 50%;
-      margin-left: auto;
-      font-weight: bold;
-      display: none;
+    .guideline-item a {
+      color: #3498db;
+      text-decoration: none;
     }
-
-    .controls {
+    .buttons {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
       text-align: center;
-      margin: 1.5em 0;
+      padding: 10px;
+      background-color: #fff;
     }
-
-    .controls button {
-      padding: 0.7em 1.5em;
-      font-size: 16px;
-      border-radius: 5px;
+    .buttons button {
+      padding: 8px 16px;
+      font-size: 13px;
       border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      margin: 0 5px;
+    }
+    #copyButton {
+      background-color: #3498db;
+      color: white;
+    }
+    #clearButton {
       background-color: #e74c3c;
       color: white;
-      cursor: pointer;
     }
-
-    .loading {
+    .toast {
+      display: none;
+      background-color: #333;
+      color: #fff;
       text-align: center;
-      margin-top: 2em;
-      font-size: 18px;
-      color: #555;
+      padding: 8px;
+      border-radius: 3px;
+      margin: 10px auto;
+      width: 180px;
+      font-size: 13px;
+    }
+    .toast.show {
+      display: block;
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1>Guideline Selector</h1>
-  </div>
-
-  <div class="dropdown-container">
-    <label for="modeSelect" style="margin-right: 0.5em; font-weight: bold;">I'm sending links for</label>
-    <select id="modeSelect">
-      <option value="business">Business Name Mode</option>
-      <option value="company">Company Mode</option>
-      <option value="agent">Agent Mode</option>
+  <div class="top-pane">
+    I'm sending guidelines for a 
+    <select id="nameSelector">
+      <option value="business">Business Name</option>
+      <option value="company">Company</option>
+      <option value="agent">Agent</option>
     </select>
   </div>
-
-  <div class="mode-heading" id="modeHeading">Business Name Mode</div>
-
-  <div class="guideline-container"></div>
-
-  <div class="controls">
-    <button id="clearButton">Clear Selection</button>
+  <div class="content-wrapper">
+    <div class="left-pane">
+      <h2>Extra Links</h2>
+      <ul id="extra-links"></ul>
+    </div>
+    <div class="main-content">
+      <div class="guideline-container"></div>
+      <div class="buttons">
+        <button id="copyButton" aria-label="Copy selected guidelines">Copy Selected</button>
+        <button id="clearButton" aria-label="Clear selection">Clear Selection</button>
+      </div>
+      <div id="toast" class="toast"></div>
+    </div>
   </div>
 
   <script>
-    const guidelineContainer = document.querySelector('.guideline-container');
-    const clearButton = document.getElementById('clearButton');
-    const modeSelect = document.getElementById('modeSelect');
-    const modeHeading = document.getElementById('modeHeading');
-
-    let currentMode = 'business';
-    let selectedOrder = [];
-
-    function updateModeHeading() {
-      modeHeading.textContent =
-        currentMode === 'business' ? 'Business Name Mode' :
-        currentMode === 'company' ? 'Company Mode' :
-        'Agent Mode';
-    }
-
-    function clearContent() {
-      guidelineContainer.innerHTML = '';
-      selectedOrder = [];
-    }
-
-    function createGuidelineItem(item) {
-      const itemDiv = document.createElement('div');
-      itemDiv.className = 'guideline-item';
-
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-
-      const label = document.createElement('label');
-      label.textContent = item.description;
-      label.style.cursor = 'pointer';
-      label.style.flex = '1';
-
-      const numberSpan = document.createElement('span');
-      numberSpan.className = 'selection-number';
-
-      itemDiv.appendChild(checkbox);
-      itemDiv.appendChild(label);
-      itemDiv.appendChild(numberSpan);
-
-      checkbox.addEventListener('change', () => {
-        if (checkbox.checked) {
-          navigator.clipboard.writeText(item.link);
-          selectedOrder.push(item.id);
-          itemDiv.classList.add('copying');
-        } else {
-          selectedOrder = selectedOrder.filter(id => id !== item.id);
-          itemDiv.classList.remove('copying');
-        }
-        updateNumbers();
-      });
-
-      return itemDiv;
-    }
-
-    function updateNumbers() {
-      const items = document.querySelectorAll('.guideline-item');
-      items.forEach(item => {
-        const checkbox = item.querySelector('input');
-        const numberSpan = item.querySelector('.selection-number');
-        const labelText = item.querySelector('label').textContent;
-
-        if (checkbox.checked) {
-          const id = labelText;
-          const index = selectedOrder.indexOf(item.querySelector('input').nextSibling.textContent);
-          numberSpan.textContent = index + 1;
-          numberSpan.style.display = 'inline-block';
-        } else {
-          numberSpan.textContent = '';
-          numberSpan.style.display = 'none';
-        }
-      });
-    }
-
-    async function loadData(mode) {
-      clearContent();
-
-      const linkFile = `${mode}-links.json`;
-      const extraFile = `${mode}-extra.json`;
-
+    async function loadGuidelines(type) {
+      const container = document.querySelector('.guideline-container');
+      container.innerHTML = '';
       try {
-        const [linksRes, extraRes] = await Promise.all([
-          fetch(linkFile),
-          fetch(extraFile)
-        ]);
-
-        if (!linksRes.ok || !extraRes.ok) throw new Error("Failed to fetch");
-
-        const linkData = await linksRes.json();
-        const extraData = await extraRes.json();
-
-        const combined = [...linkData, ...extraData];
-
-        combined.forEach(category => {
-          const categoryDiv = document.createElement('div');
-          categoryDiv.className = 'category';
-          categoryDiv.textContent = category.category;
-          guidelineContainer.appendChild(categoryDiv);
-
-          category.items.forEach(item => {
-            const itemDiv = createGuidelineItem(item);
-            guidelineContainer.appendChild(itemDiv);
+        const response = await fetch(`${type}-links.json`);
+        const guidelines = await response.json();
+        guidelines.forEach(category => {
+          container.innerHTML += `<div class="category-title">${category.category}</div>`;
+          category.items.forEach(g => {
+            container.innerHTML += `
+              <div class="guideline-item">
+                <input type="checkbox" id="${g.id}" value="${g.description}: ${g.link}">
+                <label for="${g.id}">${g.description}</label>
+                <a href="${g.link}" target="_blank">(Link)</a>
+              </div>`;
           });
         });
-      } catch (error) {
-        console.error('Failed to load data:', error);
-        guidelineContainer.innerHTML = '<div class="loading">Failed to load guidelines</div>';
+      } catch {
+        showToast('Failed to load guideline data!');
       }
     }
 
-    modeSelect.addEventListener('change', () => {
-      currentMode = modeSelect.value;
-      updateModeHeading();
-      loadData(currentMode);
-    });
+    async function loadExtraLinks(type) {
+      const extra = document.getElementById('extra-links');
+      extra.innerHTML = '';
+      try {
+        const response = await fetch(`${type}-extra.json`);
+        const data = await response.json();
+        data.forEach(link => {
+          extra.innerHTML += `<li><a href="${link.link}" target="_blank">${link.name}</a></li>`;
+        });
+      } catch {
+        showToast('Failed to load extra links!');
+      }
+    }
 
-    clearButton.addEventListener('click', () => {
-      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.checked = false;
-        checkbox.closest('.guideline-item').classList.remove('copying');
-        checkbox.closest('.guideline-item').querySelector('.selection-number').style.display = 'none';
+    function setupButtons() {
+      const toast = document.getElementById('toast');
+      document.getElementById('copyButton').onclick = () => {
+        const checked = document.querySelectorAll('.guideline-item input:checked');
+        if (!checked.length) {
+          showToast('No guidelines selected!');
+          return;
+        }
+        const html = Array.from(checked).map((cb, i) => {
+          const [desc, link] = cb.value.split(': ');
+          return `${i + 1}. <a href="${link}" target="_blank">${desc}</a>`;
+        }).join('<br>');
+        navigator.clipboard.write([
+          new ClipboardItem({
+            'text/html': new Blob([html], { type: 'text/html' })
+          })
+        ]);
+        showToast(`${checked.length} guideline(s) copied!`);
+      };
+
+      document.getElementById('clearButton').onclick = () => {
+        document.querySelectorAll('.guideline-item input').forEach(cb => cb.checked = false);
+      };
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1500);
+    }
+
+    async function loadAll(type) {
+      await loadGuidelines(type);
+      await loadExtraLinks(type);
+    }
+
+    function init() {
+      const selector = document.getElementById('nameSelector');
+      selector.addEventListener('change', () => {
+        loadAll(selector.value);
       });
-      selectedOrder = [];
-    });
 
-    // Initial load
-    updateModeHeading();
-    loadData(currentMode);
+      setupButtons();
+      loadAll(selector.value); // initial load
+    }
+
+    init();
   </script>
 </body>
 </html>
