@@ -1,0 +1,92 @@
+[
+    {
+        "category": "Signing up and using the company officeholder portal",
+        "items": [
+            {
+                "id": "guideline1",
+                "description": "How to sign up for online access",
+                "link": "https://download.asic.gov.au/media/c0pkav52/co_how-to-sign-up-for-online-access_20250714.pdf"
+            },
+            {
+                "id": "guideline2",
+                "description": "How to log in, forgotten username, forgotten password",
+                "link": "https://download.asic.gov.au/media/zuhppccj/ac_how-to-log-in-or-reset-forgotten-username-and-password_20250714.pdf"
+            },
+            {
+                "id": "guideline3",
+                "description": "How to appoint or cease a registered agent",
+                "link": "https://download.asic.gov.au/media/1192136/oh-user-guide-appoint-or-cease-ra.pdf"
+            }
+        ]
+    },
+    {
+        "category": "Change company details",
+        "items": [
+            {
+                "id": "guideline6",
+                "description": "How to change company details - change of address",
+                "link": "http://download.asic.gov.au/media/1192142/oh-user-guide-change-company-details-change-of-address.pdf"
+            },
+            {
+                "id": "guideline7",
+                "description": "How to change company details - appoint or cease company officeholders",
+                "link": "https://download.asic.gov.au/media/5979829/oh-user-guide-change-company-details-change-of-details-appoint-or-cease-company-officeholder.pdf"
+            },
+            {
+                "id": "guideline8",
+                "description": "How to change company details - ultimate holding company",
+                "link": "http://download.asic.gov.au/media/1192154/oh-user-guide-change-company-details-change-of-details-ultimate-holding-company.pdf"
+            },
+            {
+                "id": "guideline9",
+                "description": "How to change company details - change of name",
+                "link": "https://download.asic.gov.au/media/raqp2xsg/co_how-to-change-company-details-officeholders-or-members-name.pdf"
+            },
+            {
+                "id": "guideline10",
+                "description": "How to change company details - change to members register",
+                "link": "https://download.asic.gov.au/media/5355056/20191120-oh-user-guide-change-company-details-change-to-members-register.pdf"
+            },
+            {
+                "id": "guideline23",
+                "description": "How to change company details - change to share structure",
+                "link": "https://download.asic.gov.au/media/zbvm5nxz/co_how-to-change-company-details-share-structure.pdf"
+            },
+            {
+                "id": "guideline24",
+                "description": "How to change company details - change to special purpose status",
+                "link": "http://download.asic.gov.au/media/1192178/oh-user-guide-change-company-details-change-to-special-purpose-status.pdf"
+            },
+            {
+                "id": "guideline25",
+                "description": "How to submit a notification of resolution (change of company name)",
+                "link": "https://download.asic.gov.au/media/4137826/oh-user-guide-notification-of-resolution-change-to-company-name.pdf"
+            },
+            {
+                "id": "guideline26",
+                "description": "How to lodge financial statements and reports with ASIC",
+                "link": "https://download.asic.gov.au/media/4486864/oh-user-guide-copy-of-financial-statements-and-reports.pdf"
+            }
+        ]
+    },
+    {
+        "category": "Deregister your company",
+        "items": [
+            {
+                "id": "guideline11",
+                "description": "How to apply for voluntary deregistration",
+                "link": "https://download.asic.gov.au/media/4137825/how-to-apply-for-voluntary-deregistration.pdf"
+            }
+        ]
+    },
+    {
+        "category": "Full user guide for company officeholders",
+        "items": [
+            {
+                "id": "guideline21",
+                "description": "Full user guide for company officeholders",
+                "link": "https://download.asic.gov.au/media/4500046/user-guide-company-officeholders-20170929.pdf"
+            }
+        ]
+    }
+]
