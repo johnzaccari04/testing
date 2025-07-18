@@ -221,6 +221,14 @@
     </div>
 
     <div class="main-content">
+        <div style="padding: 20px; background-color: #fff;">
+            <label for="sourceSelector"><strong>Select Type:</strong></label>
+            <select id="sourceSelector" aria-label="Select source type">
+                <option value="business">Business</option>
+                <option value="company">Company</option>
+                <option value="agent">Agent</option>
+            </select>
+        </div>
         <div class="guideline-container"></div>
         <div class="buttons">
             <button id="copyButton" aria-label="Copy selected guidelines">Copy Selected Guidelines</button>
@@ -366,26 +374,44 @@
             selectedOrder = [];
         }
 
-        async function init() {
-            try {
-                const guidelines = await loadJSON('business.json');
-                renderGuidelines(guidelines);
+        async function loadData(type) {
+    try {
+        const guidelines = await loadJSON(`${type}-links.json`);
+        const extraData = await loadJSON(`${type}-extra.json`);
 
-                const extraData = await loadJSON('business-json.json');
-                renderExtraLinks(extraData.extraLinks);
+        const guidelineContainer = document.querySelector('.guideline-container');
+        guidelineContainer.innerHTML = ''; // Clear previous content
+        renderGuidelines(guidelines);
 
-                document.getElementById('copyButton').addEventListener('click', handleCopy);
-                document.getElementById('clearButton').addEventListener('click', handleClear);
+        const extraLinksContainer = document.querySelector('#extra-links');
+        extraLinksContainer.innerHTML = ''; // Clear previous links
+        renderExtraLinks(extraData.extraLinks);
 
-                document.querySelectorAll('.guideline-item input[type="checkbox"]').forEach(checkbox => {
-                    checkbox.addEventListener('change', handleCheckboxChange);
-                });
-            } catch (error) {
-                console.error('Failed to initialize:', error);
-            }
-        }
+        document.querySelectorAll('.guideline-item input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', handleCheckboxChange);
+        });
+    } catch (error) {
+        console.error(`Error loading data for ${type}:`, error);
+    }
+}
 
-        init();
+function handleSelectionChange() {
+    const selectedType = document.getElementById('sourceSelector').value;
+    selectedOrder = []; // Clear selected items on change
+    handleClear(); // Reset any selections
+    loadData(selectedType);
+}
+
+function init() {
+    document.getElementById('sourceSelector').addEventListener('change', handleSelectionChange);
+    document.getElementById('copyButton').addEventListener('click', handleCopy);
+    document.getElementById('clearButton').addEventListener('click', handleClear);
+
+    loadData('business'); // Default load
+}
+
+init();
+
     </script>
 </body>
 </html>
