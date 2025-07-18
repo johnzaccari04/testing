@@ -91,11 +91,23 @@
             color: #2c3e50;
             cursor: pointer;
             user-select: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, border-color 0.3s ease;
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: 2px solid transparent;
         }
 
-        .toggle-label.active {
-            color: #27ae60; /* Green highlight for active mode */
+        /* New: active label with colored border and text */
+        .toggle-label.active.business {
+            color: #2980b9; /* Blue text */
+            border-color: #2980b9; /* Blue border */
+            background-color: #eaf4fc; /* Light blue background */
+        }
+
+        .toggle-label.active.company {
+            color: #27ae60; /* Green text */
+            border-color: #27ae60; /* Green border */
+            background-color: #e6f5ea; /* Light green background */
         }
 
         .toggle-switch {
@@ -303,14 +315,13 @@
     <div class="main-content">
         <div class="header">
             <div class="toggle-container">
-                <span class="toggle-label active" id="businessLabel">Business Names</span>
+                <span class="toggle-label active business" id="businessLabel">Business Names</span>
                 <label class="toggle-switch" for="modeToggle">
                     <input type="checkbox" id="modeToggle" />
                     <span class="slider"></span>
                 </label>
                 <span class="toggle-label" id="companyLabel">Company</span>
             </div>
-            <!-- Removed current mode text display -->
         </div>
 
         <div class="guideline-container">
@@ -414,21 +425,25 @@
             renderExtraLinks(extraLinks[mode]);
         }
 
-        function handleModeToggle() {
-            const toggle = document.getElementById('modeToggle');
+        function updateToggleHighlight() {
             const businessLabel = document.getElementById('businessLabel');
             const companyLabel = document.getElementById('companyLabel');
 
+            if (currentMode === 'business') {
+                businessLabel.classList.add('active', 'business');
+                companyLabel.classList.remove('active', 'company');
+            } else {
+                companyLabel.classList.add('active', 'company');
+                businessLabel.classList.remove('active', 'business');
+            }
+        }
+
+        function handleModeToggle() {
+            const toggle = document.getElementById('modeToggle');
+
             currentMode = toggle.checked ? 'company' : 'business';
 
-            // Highlight active label
-            if (currentMode === 'business') {
-                businessLabel.classList.add('active');
-                companyLabel.classList.remove('active');
-            } else {
-                companyLabel.classList.add('active');
-                businessLabel.classList.remove('active');
-            }
+            updateToggleHighlight();
 
             clearContent();
             loadData(currentMode);
@@ -520,7 +535,7 @@
         }
 
         function handleClear() {
-            // Only clear selections, do not reload or change mode
+            // Just clear checkboxes & selections - no mode reload or toggle reset
             document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                 checkbox.checked = false;
                 const guidelineItem = checkbox.closest('.guideline-item');
@@ -534,14 +549,16 @@
 
         async function init() {
             try {
-                document.getElementById('modeToggle').addEventListener('change', handleModeToggle);
+                const toggle = document.getElementById('modeToggle');
+                toggle.addEventListener('change', handleModeToggle);
                 document.getElementById('copyButton').addEventListener('click', handleCopy);
                 document.getElementById('clearButton').addEventListener('click', handleClear);
 
-                // Set initial label highlight for business mode
-                document.getElementById('businessLabel').classList.add('active');
-
-                await loadData('business');
+                // Initialize highlight & data load for 'business' mode on start
+                currentMode = 'business';
+                toggle.checked = false;
+                updateToggleHighlight();
+                await loadData(currentMode);
             } catch (error) {
                 console.error('Failed to initialize:', error);
                 document.querySelector('.guideline-container').innerHTML = '<div class="loading">Failed to load guidelines</div>';
