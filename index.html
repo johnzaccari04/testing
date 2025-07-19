@@ -105,7 +105,7 @@ body {
     flex-direction: column;
     overflow: hidden;
     margin: 0;
-    padding: 20px;
+    padding: 15px;
     max-width: none;
     background: none;
     border-radius: 0;
@@ -113,11 +113,11 @@ body {
     position: relative;
 }
 
-/* COMBINED TOP BAR - Now includes buttons */
+/* COMBINED TOP BAR - Shrunk for more guideline space */
 #selection-bar {
-    padding: 20px;
+    padding: 12px 20px;
     background-color: #e0e0e0;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -126,12 +126,13 @@ body {
     z-index: 1;
     gap: 20px;
     flex-wrap: wrap;
+    min-height: auto;
 }
 
 /* SELECT DROPDOWN */
 #sourceSelector {
-    font-size: 16px;
-    padding: 10px 40px 10px 14px;
+    font-size: 14px;
+    padding: 8px 35px 8px 12px;
     margin-left: 10px;
     border-radius: 6px;
     border: 1px solid #ccc;
@@ -139,8 +140,8 @@ body {
     appearance: none;
     background-image: url('data:image/svg+xml,%3Csvg width=\'16\' height=\'10\' viewBox=\'0 0 16 10\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M1 1l7 7 7-7\' stroke=\'%233498db\' stroke-width=\'2\' fill=\'none\' stroke-linecap=\'round\'/%3E%3C/svg%3E');
     background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 16px 10px;
+    background-position: right 12px center;
+    background-size: 14px 8px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
     cursor: pointer;
@@ -152,54 +153,87 @@ body {
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
 }
 
-/* Mode display */
+/* Mode display - smaller */
 #modeDisplay {
-    padding: 6px 12px;
-    border-radius: 20px;
+    padding: 5px 10px;
+    border-radius: 16px;
     background-color: #c8e6c9;
     color: #388e3c;
     border: 1px solid #a5d6a7;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
     user-select: none;
 }
 
-/* CONTAINER THAT HOLDS GUIDELINES - Now takes more vertical space */
+/* Label text - smaller */
+#selection-bar label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* CONTAINER THAT HOLDS GUIDELINES - Better scrollbar integration */
 .guideline-container {
     flex: 1;
-    padding: 30px;
+    padding: 20px 25px 5px 25px;
     overflow-y: auto;
     background-color: #ffffff;
     border-radius: 25px;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
     position: relative;
     z-index: 2;
+    margin-bottom: 15px;
 }
 
-/* BUTTONS - Now inline in top bar */
-.buttons {
+/* Custom scrollbar for webkit browsers */
+.guideline-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.guideline-container::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 25px;
+}
+
+.guideline-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #bdc3c7, #95a5a6);
+    border-radius: 25px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.guideline-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #95a5a6, #7f8c8d);
+    background-clip: content-box;
+}
+
+/* BOTTOM BAR - New grey background for buttons */
+#bottom-bar {
+    padding: 12px 20px;
+    background-color: #e0e0e0;
     display: flex;
-    gap: 10px;
     align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    gap: 15px;
 }
 
-.buttons button {
-    padding: 10px 20px;
+/* BUTTONS - Updated styling */
+#bottom-bar button {
+    padding: 8px 18px;
     font-size: 14px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 5px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 
-.buttons button:hover {
+#bottom-bar button:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.buttons button:focus {
+#bottom-bar button:focus {
     outline: 2px solid #3498db;
     outline-offset: 2px;
 }
@@ -222,18 +256,23 @@ body {
     background-color: #c0392b;
 }
 
-/* CATEGORY TITLES */
+/* CATEGORY TITLES - Reduced top margin */
 .category-title {
     font-size: 22px;
     font-weight: bold;
     color: #3498db;
-    margin: 20px auto 15px auto;
+    margin: 8px auto 15px auto;
     padding-bottom: 10px;
     border-bottom: 2px solid #3498db;
     max-width: 80%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/* First category title - no top margin */
+.category-title:first-child {
+    margin-top: 0;
 }
 
 /* GUIDELINE ITEM CARD */
@@ -381,6 +420,10 @@ body {
     .category-title {
         max-width: 95%;
     }
+
+    #selection-bar, #bottom-bar {
+        padding: 10px 15px;
+    }
 }
 
 /* Reduced motion preference */
@@ -404,7 +447,7 @@ body {
         <!-- Dropdown selector + mode display -->
         <div id="selection-bar">
             <div>
-                <label for="sourceSelector" style="font-size: 16px; font-weight: bold;">I'm sending guidelines to:</label>
+                <label for="sourceSelector">I'm sending guidelines to:</label>
                 <select id="sourceSelector" aria-label="Select source type">
                     <option value="business">Business Name</option>
                     <option value="company">Company</option>
@@ -417,8 +460,8 @@ body {
         <!-- Guidelines will load here - now with focused circular container -->
         <div class="guideline-container"></div>
 
-        <!-- Copy/Clear buttons -->
-        <div class="buttons">
+        <!-- Bottom bar with Copy/Clear buttons -->
+        <div id="bottom-bar">
             <button id="copyButton" aria-label="Copy selected guidelines">Copy Selected Guidelines</button>
             <button id="clearButton" aria-label="Clear selection">Clear Selection</button>
         </div>
