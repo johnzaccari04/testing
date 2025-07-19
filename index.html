@@ -207,16 +207,17 @@ body {
     font-size: 14px;
     border-radius: 14px;
     border: 1px solid #ddd;
-    background-color: #f5f9ff; /* subtle light blue background */
+    background-color: #f0f0f0; /* lighter shade than buttons background */
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     max-width: 65%;
-    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
+/* Hover uses same as buttons background (#e0e0e0) */
 .guideline-item:hover {
-    background-color: #d7e6fc;
-    box-shadow: 0 6px 14px rgba(52, 152, 219, 0.25);
+    background-color: #e0e0e0;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
 /* Remove background from label and link text */
@@ -255,13 +256,14 @@ body {
     outline-offset: 2px;
 }
 
-/* Copy animation background */
+/* Copy animation background with lighter green */
 .guideline-item.copying {
-    background-color: #4CAF50;
+    background-color: #81c784; /* lighter green */
+    box-shadow: 0 0 12px #81c784aa;
     transition: background-color 0.5s ease;
-    box-shadow: 0 0 12px #4caf50aa;
 }
 
+/* Selection number circle */
 .selection-number {
     background-color: #3498db;
     color: white;
@@ -274,7 +276,7 @@ body {
     display: none;
 }
 
-/* TOAST NOTIFICATION */
+/* TOAST NOTIFICATION - top right corner */
 .toast {
     visibility: hidden;
     min-width: 250px;
@@ -284,8 +286,8 @@ body {
     border-radius: 5px;
     padding: 12px;
     position: fixed;
-    z-index: 1;
-    bottom: 30px;
+    z-index: 9999;
+    top: 30px;
     right: 30px;
     font-size: 14px;
     opacity: 0;
@@ -327,17 +329,19 @@ body {
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
 }
 
+/* Mode display with lighter green */
 #modeDisplay {
     padding: 6px 12px;
     border-radius: 20px;
-    background-color: #e0f7e9;
-    color: #2e7d32;
-    border: 1px solid #c4eac8;
+    background-color: #c8e6c9; /* lighter green background */
+    color: #388e3c; /* darker green text */
+    border: 1px solid #a5d6a7;
     font-weight: bold;
     font-size: 14px;
     user-select: none;
 }
 
+/* Prevent text selection */
 .no-select {
     user-select: none;
     -webkit-user-select: none;
