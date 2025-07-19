@@ -1,16 +1,12 @@
 {
     "extraLinks": [
         {
-            "name": "Online Enquiry",
-            "link": "https://www.edge.asic.gov.au/008/inquiryV001/start/landingpage"
+            "name": "Applying to be a Registered Agent",
+            "link": "https://www.asic.gov.au/online-services/asic-portals/registered-agents/#apply-ra"
         },
         {
-            "name": "Request review of ASIC business names decision",
-            "link": "https://asic.gov.au/for-business/registering-a-business-name/before-you-register-a-business-name/business-name-availability/request-review-of-asic-business-names-decision/"
-        },
-        {
-            "name": "Missing payments",
-            "link": "https://asic.gov.au/for-business/payments-fees-and-invoices/missing-payments/"
+            "name": "Request to lodge docs via email",
+            "link": "https://www.asic.gov.au/online-services/asic-portals/registered-agents/#Whatdocumentscanilodge"
         }
     ]
 }

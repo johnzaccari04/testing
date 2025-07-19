@@ -27,6 +27,14 @@
         {
             "name": "Deregistered property",
             "link": "https://www.asic.gov.au/for-business-and-companies/companies/deregistered-company-property/"
+        },
+        {
+            "name": "Corporate Key",
+            "link": "https://www.asic.gov.au/online-services/online-services-information-and-support/online-keys/corporate-key/"
+        },
+        {
+            "name": "Company Alert Service",
+            "link": "https://www.asic.gov.au/online-services/online-services-information-and-support/using-the-company-alert-service/#alerts"
         }
     ]
 }
