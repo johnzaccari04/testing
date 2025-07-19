@@ -34,154 +34,12 @@ body {
     border: none;
 }
 
-/* HEADINGS INSIDE PANES */
-.left-pane h2, .right-pane h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.left-pane h2 {
-    color: #3498db;
-}
-
-.right-pane h2 {
-    color: #e67e22;
-}
-
-/* LINK LISTS */
-.left-pane ul, .right-pane ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.left-pane ul li, .right-pane ul li {
-    margin-bottom: 15px;
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
-.left-pane ul li a, .right-pane ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    display: block;
-    padding: 8px;
-    border-radius: 4px;
-}
-
-.left-pane ul li a:hover {
-    background-color: #34495e;
-    color: #3498db;
-}
-
-.right-pane ul li a:hover {
-    background-color: #2c3e50;
-    color: #e67e22;
-}
-
-/* MAIN CONTENT CONTAINER */
-.main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    margin: 20px;
-    max-width: none;
-    background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-/* CONTAINER THAT HOLDS GUIDELINES */
-.guideline-container {
-    flex: 1;
-    padding: 0;
-    overflow-y: auto;
-}
-
-/* CATEGORY TITLES */
-.category-title {
-    font-size: 22px;
-    font-weight: bold;
-    color: #3498db;
-    margin: 20px auto 10px auto;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #3498db;
-    max-width: 75%;
-}
-
-/* GUIDELINE ITEM CARD */
-.guideline-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin: 0 auto 15px auto;
-    padding: 14px;
-    font-size: 14px;
-    border-radius: 14px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    max-width: 75%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.guideline-item:hover {
-    background-color: #e8f0fe;
-}
-
-.guideline-item input[type="checkbox"] {
-    margin-right: 6px;
-    transform: scale(1.1);
-}
-
-.guideline-item input[type="checkbox"]:focus {
-    outline: 2px solid #3498db;
-    outline-offset: 2px;
-}
-
-.guideline-item label {
-    flex: 1;
-    color: #333;
-}
-
-.guideline-item a {
-    color: #3498db;
-    text-decoration: none;
-    font-size: 13px;
-}
-
-.guideline-item a:hover {
-    text-decoration: underline;
-}
-
-.guideline-item.copying {
-    background-color: #4CAF50;
-    transition: background-color 0.5s ease;
-}
-
-.selection-number {
-    background-color: #3498db;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 50%;
-    min-width: 20px;
-    text-align: center;
-    display: none;
-}
-
-/* BOTTOM BUTTON PANEL */
+/* BOTTOM BUTTONS - MATCH SELECTION BAR BACKGROUND */
 .buttons {
     text-align: center;
     margin-top: 10px;
     padding: 10px;
-    background-color: #2c3e50;
+    background-color: #f1f1f1; /* MATCHES top selection bar background */
     position: sticky;
     bottom: 0;
     z-index: 5;
@@ -226,6 +84,160 @@ body {
 
 #clearButton:hover {
     background-color: #c0392b;
+}
+
+/* HEADINGS INSIDE PANES */
+.left-pane h2, .right-pane h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.left-pane h2 {
+    color: #3498db;
+}
+
+.right-pane h2 {
+    color: #e67e22;
+}
+
+/* LINK LISTS */
+.left-pane ul, .right-pane ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.left-pane ul li, .right-pane ul li {
+    margin-bottom: 10px; /* Reduced vertical space */
+    padding-left: 8px;
+    padding-right: 8px;
+    line-height: 1.3em; /* Slightly tighter line height */
+}
+
+.left-pane ul li a, .right-pane ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    display: block;
+    padding: 6px 8px; /* Reduced padding for height */
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.05); /* Slight subtle background */
+}
+
+.left-pane ul li a:hover {
+    background-color: #34495e;
+    color: #3498db;
+}
+
+.right-pane ul li a:hover {
+    background-color: #2c3e50;
+    color: #e67e22;
+}
+
+/* MAIN CONTENT CONTAINER */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 20px;
+    max-width: none;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* CONTAINER THAT HOLDS GUIDELINES */
+.guideline-container {
+    flex: 1;
+    padding: 0;
+    overflow-y: auto;
+}
+
+/* CATEGORY TITLES - max width reduced by ~10% */
+.category-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #3498db;
+    margin: 20px auto 10px auto;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+    max-width: 65%;
+}
+
+/* GUIDELINE ITEM CARD - max width reduced by ~10%, less vertical margin */
+.guideline-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 auto 10px auto; /* Less bottom margin */
+    padding: 10px 14px; /* Slightly smaller vertical padding */
+    font-size: 14px;
+    border-radius: 14px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    max-width: 65%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Slight background behind label (the description text) */
+.guideline-item label {
+    flex: 1;
+    color: #333;
+    background-color: #f5f8fb; /* subtle background */
+    padding: 3px 6px;
+    border-radius: 6px;
+    line-height: 1.3em;
+}
+
+.guideline-item:hover {
+    background-color: #e8f0fe;
+}
+
+.guideline-item input[type="checkbox"] {
+    margin-right: 6px;
+    transform: scale(1.1);
+}
+
+.guideline-item input[type="checkbox"]:focus {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+}
+
+.guideline-item a {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 13px;
+    background-color: #f5f8fb; /* subtle background */
+    padding: 2px 6px;
+    border-radius: 6px;
+    line-height: 1.2em;
+}
+
+.guideline-item a:hover {
+    text-decoration: underline;
+    background-color: #dbe9fd;
+}
+
+.guideline-item.copying {
+    background-color: #4CAF50;
+    transition: background-color 0.5s ease;
+}
+
+.selection-number {
+    background-color: #3498db;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+    min-width: 20px;
+    text-align: center;
+    display: none;
 }
 
 /* TOAST NOTIFICATION */
