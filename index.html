@@ -113,7 +113,7 @@ body {
     position: relative;
 }
 
-/* TOP SELECTION BAR - Now in background */
+/* COMBINED TOP BAR - Now includes buttons */
 #selection-bar {
     padding: 20px;
     background-color: #e0e0e0;
@@ -124,6 +124,8 @@ body {
     border-radius: 8px;
     position: relative;
     z-index: 1;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 /* SELECT DROPDOWN */
@@ -162,7 +164,7 @@ body {
     user-select: none;
 }
 
-/* CONTAINER THAT HOLDS GUIDELINES - Now with circular border and background */
+/* CONTAINER THAT HOLDS GUIDELINES - Now takes more vertical space */
 .guideline-container {
     flex: 1;
     padding: 30px;
@@ -170,19 +172,15 @@ body {
     background-color: #ffffff;
     border-radius: 25px;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
-    margin-bottom: 20px;
     position: relative;
     z-index: 2;
 }
 
-/* BOTTOM BUTTONS - Now in background */
+/* BUTTONS - Now inline in top bar */
 .buttons {
-    text-align: center;
-    padding: 20px;
-    background-color: #e0e0e0;
-    border-radius: 8px;
-    position: relative;
-    z-index: 1;
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .buttons button {
@@ -373,6 +371,17 @@ body {
         max-width: 100%;
     }
 
+    #selection-bar {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .buttons {
+        width: 100%;
+        justify-content: center;
+    }
+
     .guideline-container {
         border-radius: 15px;
         padding: 20px;
@@ -402,7 +411,7 @@ body {
     </div>
 
     <div class="main-content">
-        <!-- Dropdown selector + mode display -->
+        <!-- Combined top bar with selector, mode, and buttons -->
         <div id="selection-bar">
             <div>
                 <label for="sourceSelector" style="font-size: 16px; font-weight: bold;">I'm sending guidelines to:</label>
@@ -413,16 +422,14 @@ body {
                 </select>
             </div>
             <div id="modeDisplay">Business Name Mode</div>
+            <div class="buttons">
+                <button id="copyButton" aria-label="Copy selected guidelines">Copy Selected Guidelines</button>
+                <button id="clearButton" aria-label="Clear selection">Clear Selection</button>
+            </div>
         </div>
 
         <!-- Guidelines will load here - now with focused circular container -->
         <div class="guideline-container"></div>
-
-        <!-- Copy/Clear buttons -->
-        <div class="buttons">
-            <button id="copyButton" aria-label="Copy selected guidelines">Copy Selected Guidelines</button>
-            <button id="clearButton" aria-label="Clear selection">Clear Selection</button>
-        </div>
     </div>
 
     <div class="right-pane">
