@@ -34,42 +34,6 @@ body {
     border: none;
 }
 
-/* LINK LISTS */
-.left-pane ul, .right-pane ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.left-pane ul li, .right-pane ul li {
-    margin-bottom: 10px; /* Reduced vertical space */
-    padding-left: 8px;
-    padding-right: 8px;
-    line-height: 1.3em; /* Slightly tighter line height */
-}
-
-/* Links in side panes: subtle semi-transparent background, consistent highlight */
-.left-pane ul li a, .right-pane ul li a {
-    color: #ecf0f1; /* lighter text for contrast */
-    text-decoration: none;
-    font-size: 14px;
-    display: block;
-    padding: 6px 8px;
-    border-radius: 6px;
-    background-color: rgba(255, 255, 255, 0.07);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.left-pane ul li a:hover {
-    background-color: rgba(52, 152, 219, 0.3);
-    color: #3498db;
-}
-
-.right-pane ul li a:hover {
-    background-color: rgba(230, 126, 34, 0.3);
-    color: #e67e22;
-}
-
 /* HEADINGS INSIDE PANES */
 .left-pane h2, .right-pane h2 {
     font-size: 20px;
@@ -84,6 +48,54 @@ body {
 
 .right-pane h2 {
     color: #e67e22;
+}
+
+/* LINK LISTS */
+.left-pane ul, .right-pane ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.left-pane ul li, .right-pane ul li {
+    margin-bottom: 10px; /* Reduced vertical space */
+    padding-left: 8px;
+    padding-right: 8px;
+    line-height: 1.3em;
+}
+
+/* LINKS IN LEFT PANE - subtle background and better contrast */
+.left-pane ul li a {
+    color: #ecf0f1; /* lighter text */
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: rgba(52, 152, 219, 0.2); /* subtle blue background */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.left-pane ul li a:hover {
+    background-color: #3498db; /* stronger blue on hover */
+    color: white;
+}
+
+/* LINKS IN RIGHT PANE - subtle background and improved contrast */
+.right-pane ul li a {
+    color: #f5d6a0; /* softer pale orange text for better contrast */
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: rgba(230, 126, 34, 0.2); /* subtle orange background */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.right-pane ul li a:hover {
+    background-color: #e67e22; /* stronger orange on hover */
+    color: white;
 }
 
 /* BOTTOM BUTTONS - MATCH SELECTION BAR BACKGROUND */
@@ -179,20 +191,20 @@ body {
     align-items: center;
     gap: 14px;
     margin: 0 auto 10px auto; /* Less bottom margin */
-    padding: 12px 16px; /* Comfortable padding */
+    padding: 12px 16px;
     font-size: 14px;
     border-radius: 14px;
     border: 1px solid #ddd;
-    background-color: #fefefe; /* subtle white background */
+    background-color: #f5f9ff; /* subtle light blue background */
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     max-width: 65%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.1);
 }
 
 .guideline-item:hover {
-    background-color: #e8f0fe;
-    box-shadow: 0 6px 14px rgba(52, 152, 219, 0.2);
+    background-color: #d7e6fc;
+    box-shadow: 0 6px 14px rgba(52, 152, 219, 0.25);
 }
 
 /* Remove background from label and link text */
