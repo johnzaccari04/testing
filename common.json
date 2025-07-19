@@ -1,16 +1,28 @@
 {
     "CommonLinks": [
         {
+            "name": "Missing Payment",
+            "link": "https://www.asic.gov.au/for-business-and-companies/forms-and-fees/missing-payments/"
+        },
+        {
+            "name": "Refunds",
+            "link": "https://www.asic.gov.au/for-business-and-companies/forms-and-fees/refunds/"
+        },
+        {
             "name": "Online Enquiry",
-            "link": "https://www.edge.asic.gov.au/008/inquiryV001/start/landingpage"
+            "link": "https://www.edge.asic.gov.au/008/inquiryV001?start/landingPage"
         },
         {
-            "name": "Request review of ASIC business names decision",
-            "link": "https://asic.gov.au/for-business/registering-a-business-name/before-you-register-a-business-name/business-name-availability/request-review-of-asic-business-names-decision/"
+            "name": "Private Service Providers",
+            "link": "https://www.asic.gov.au/online-services/intermediary-information-and-support/information-brokers-and-registry-gatekeepers/#private"
         },
         {
-            "name": "Missing payments",
-            "link": "https://asic.gov.au/for-business/payments-fees-and-invoices/missing-payments/"
+            "name": "Search ASIC Registers",
+            "link": "https://www.asic.gov.au/online-services/search-asic-registers/"
+        },
+        {
+            "name": "Report Issue to ASIC",
+            "link": "https://www.asic.gov.au/about-asic/contact-us/report-issue-to-asic/"
         }
     ]
 }

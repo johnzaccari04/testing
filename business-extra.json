@@ -1,16 +1,8 @@
 {
     "extraLinks": [
         {
-            "name": "Online Enquiry",
-            "link": "https://www.edge.asic.gov.au/008/inquiryV001/start/landingpage"
-        },
-        {
             "name": "Request review of ASIC business names decision",
             "link": "https://asic.gov.au/for-business/registering-a-business-name/before-you-register-a-business-name/business-name-availability/request-review-of-asic-business-names-decision/"
-        },
-        {
-            "name": "Missing payments",
-            "link": "https://asic.gov.au/for-business/payments-fees-and-invoices/missing-payments/"
         },
         {
             "name": "Suppression",
@@ -27,14 +19,6 @@
         {
             "name": "Request an alternative registration period for business name",
             "link": "https://asic.gov.au/for-business/updating-your-business-name-details/request-an-alternative-registration-period-for-business-name/"
-        },
-        {
-            "name": "Reporting misconduct to ASIC",
-            "link": "https://asic.gov.au/about-asic/contact-us/reporting-misconduct-to-asic/"
-        },
-        {
-            "name": "Private Service Providers",
-            "link": "https://asic.gov.au/for-business/registering-a-business-name/before-you-register-a-business-name/private-service-providers/"
         },
         {
             "name": "Business name availability",
