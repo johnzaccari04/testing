@@ -331,42 +331,15 @@
     <div id="toast" class="toast">Copied to clipboard!</div>
 
     <script>
-
-        async function loadJSON(filename) {
-            // Simulate loading JSON files based on filename
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    switch(filename) {
-                        case 'common.json':
-                            resolve(sampleData.common);
-                            break;
-                        case 'business-links.json':
-                            resolve(sampleData.business);
-                            break;
-                        case 'company-links.json':
-                            resolve(sampleData.company);
-                            break;
-                        case 'agent-links.json':
-                            resolve(sampleData.agent);
-                            break;
-                        case 'business-extra.json':
-                            resolve(sampleData.businessExtra);
-                            break;
-                        case 'company-extra.json':
-                            resolve(sampleData.companyExtra);
-                            break;
-                        case 'agent-extra.json':
-                            resolve(sampleData.agentExtra);
-                            break;
-                        default:
-                            resolve([]);
-                    }
-                }, 100); // Simulate network delay
-            });
+        async function loadJSON(url) {
+            const response = await fetch(url);
+            return response.json();
         }
 
         function renderGuidelines(guidelines) {
             const container = document.querySelector('.guideline-container');
+            container.innerHTML = ''; // Clear previous content
+            
             guidelines.forEach(category => {
                 const title = document.createElement('div');
                 title.className = 'category-title';
@@ -390,7 +363,8 @@
 
         function renderExtraLinks(extraLinks) {
             const container = document.querySelector('#extra-links');
-            container.innerHTML = ''; // Clear previous links
+            container.innerHTML = ''; // Clear previous content
+            
             extraLinks.forEach(link => {
                 const li = document.createElement('li');
                 li.innerHTML = `<a href="${link.link}" target="_blank">${link.name}</a>`;
@@ -398,26 +372,14 @@
             });
         }
 
-        function renderCommonLinks(commonData) {
+        function renderCommonLinks(commonLinks) {
             const container = document.querySelector('#common-links');
-            container.innerHTML = ''; // Clear previous links
+            container.innerHTML = ''; // Clear previous content
             
-            // Convert the common data structure to display all items as links
-            commonData.forEach(category => {
-                // Add category as a divider/header
-                const categoryHeader = document.createElement('li');
-                categoryHeader.innerHTML = `<strong style="color: #f39c12; font-size: 13px; display: block; margin-bottom: 8px;">${category.category}</strong>`;
-                categoryHeader.style.borderBottom = '1px solid #4a5c6b';
-                categoryHeader.style.paddingBottom = '5px';
-                categoryHeader.style.marginBottom = '10px';
-                container.appendChild(categoryHeader);
-
-                // Add all items under this category
-                category.items.forEach(item => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<a href="${item.link}" target="_blank">${item.description}</a>`;
-                    container.appendChild(li);
-                });
+            commonLinks.forEach(link => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="${link.link}" target="_blank">${link.name}</a>`;
+                container.appendChild(li);
             });
         }
 
@@ -540,20 +502,11 @@
             }
         }
 
-        async function loadCommonData() {
-            try {
-                const commonData = await loadJSON('common.json');
-                renderCommonLinks(commonData); // Fixed: pass commonData directly, not commonData.commonLinks
-            } catch (error) {
-                console.error('Error loading common data:', error);
-            }
-        }
-
-        function handleSelectionChange() {
+        async function handleSelectionChange() {
             const selectedType = document.getElementById('sourceSelector').value;
             selectedOrder = [];
             handleClear();
-            loadData(selectedType);
+            await loadData(selectedType);
 
             const modeDisplay = document.getElementById('modeDisplay');
             if (selectedType === 'business') {
@@ -565,13 +518,21 @@
             }
         }
 
-        function init() {
+        async function init() {
             document.getElementById('sourceSelector').addEventListener('change', handleSelectionChange);
             document.getElementById('copyButton').addEventListener('click', handleCopy);
             document.getElementById('clearButton').addEventListener('click', handleClear);
 
-            loadData('business'); // Default load
-            loadCommonData(); // Load common links once on initialization
+            // Load common links (always visible)
+            try {
+                const commonData = await loadJSON('common.json');
+                renderCommonLinks(commonData.CommonLinks);
+            } catch (error) {
+                console.error('Error loading common links:', error);
+            }
+            
+            // Load default data
+            loadData('business');
         }
 
         init();
