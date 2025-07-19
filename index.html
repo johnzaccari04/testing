@@ -98,15 +98,32 @@ body {
     color: white;
 }
 
-/* TOP SELECTION BAR */
+/* MAIN CONTENT CONTAINER - Now takes full height and removes background */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0;
+    padding: 20px;
+    max-width: none;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    position: relative;
+}
+
+/* TOP SELECTION BAR - Now in background */
 #selection-bar {
     padding: 20px;
     background-color: #e0e0e0;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 8px;
+    position: relative;
+    z-index: 1;
 }
 
 /* SELECT DROPDOWN */
@@ -145,19 +162,27 @@ body {
     user-select: none;
 }
 
-/* BOTTOM BUTTONS */
+/* CONTAINER THAT HOLDS GUIDELINES - Now with circular border and background */
+.guideline-container {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background-color: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* BOTTOM BUTTONS - Now in background */
 .buttons {
     text-align: center;
-    margin-top: 10px;
-    padding: 10px;
+    padding: 20px;
     background-color: #e0e0e0;
-    position: sticky;
-    bottom: 0;
-    z-index: 5;
-    border-top: none;
-    box-shadow: none;
-    border: none;
-    border-radius: 0 0 8px 8px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
 }
 
 .buttons button {
@@ -199,35 +224,15 @@ body {
     background-color: #c0392b;
 }
 
-/* MAIN CONTENT CONTAINER */
-.main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    margin: 20px;
-    max-width: none;
-    background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-/* CONTAINER THAT HOLDS GUIDELINES */
-.guideline-container {
-    flex: 1;
-    padding: 0;
-    overflow-y: auto;
-}
-
 /* CATEGORY TITLES */
 .category-title {
     font-size: 22px;
     font-weight: bold;
     color: #3498db;
-    margin: 20px auto 10px auto;
+    margin: 20px auto 15px auto;
     padding-bottom: 10px;
     border-bottom: 2px solid #3498db;
-    max-width: 65%;
+    max-width: 80%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -238,20 +243,20 @@ body {
     display: flex;
     align-items: center;
     gap: 14px;
-    margin: 0 auto 10px auto;
+    margin: 0 auto 12px auto;
     padding: 12px 16px;
     font-size: 14px;
     border-radius: 14px;
     border: 1px solid #ddd;
-    background-color: #f0f0f0;
+    background-color: #f8f9fa;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    max-width: 65%;
+    max-width: 80%;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .guideline-item:hover {
-    background-color: #e0e0e0;
+    background-color: #e9ecef;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
@@ -364,10 +369,13 @@ body {
 
     .main-content {
         margin: 0;
-        padding: 0 15px;
+        padding: 15px;
         max-width: 100%;
-        border-radius: 0;
-        box-shadow: none;
+    }
+
+    .guideline-container {
+        border-radius: 15px;
+        padding: 20px;
     }
 
     .guideline-item,
@@ -407,7 +415,7 @@ body {
             <div id="modeDisplay">Business Name Mode</div>
         </div>
 
-        <!-- Guidelines will load here -->
+        <!-- Guidelines will load here - now with focused circular container -->
         <div class="guideline-container"></div>
 
         <!-- Copy/Clear buttons -->
