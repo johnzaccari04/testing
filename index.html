@@ -331,9 +331,155 @@
     <div id="toast" class="toast">Copied to clipboard!</div>
 
     <script>
-        async function loadJSON(url) {
-            const response = await fetch(url);
-            return response.json();
+        // Sample data to simulate your JSON files
+        const sampleData = {
+            common: [
+                {
+                    "category": "Signing up and using ASIC Connect",
+                    "items": [
+                        {
+                            "id": "guideline1",
+                            "description": "How to sign up for an ASIC Connect account",
+                            "link": "https://download.asic.gov.au/media/hlifywms/ac_how-to-sign-up-for-an-asic-connect-account.pdf"
+                        },
+                        {
+                            "id": "guideline2",
+                            "description": "How to link a business to your ASIC Connect account",
+                            "link": "https://download.asic.gov.au/media/he0dmipn/ac_how-to-link-a-business-to-your-asic-connect-account.pdf"
+                        }
+                    ]
+                },
+                {
+                    "category": "Register a business name",
+                    "items": [
+                        {
+                            "id": "guideline6",
+                            "description": "How to register a business name for the first time if the holder is an individual (sole trader)",
+                            "link": "https://download.asic.gov.au/media/pbfbip3l/bn_how-to-register-a-business-name-if-the-holder-is-an-individual-sole-trader.pdf"
+                        }
+                    ]
+                }
+            ],
+            business: [
+                {
+                    "category": "Business Name Management",
+                    "items": [
+                        {
+                            "id": "bn1",
+                            "description": "Register a new business name",
+                            "link": "https://example.com/register-business-name"
+                        },
+                        {
+                            "id": "bn2",
+                            "description": "Renew business name registration",
+                            "link": "https://example.com/renew-business-name"
+                        }
+                    ]
+                }
+            ],
+            company: [
+                {
+                    "category": "Company Management",
+                    "items": [
+                        {
+                            "id": "co1",
+                            "description": "Register a new company",
+                            "link": "https://example.com/register-company"
+                        },
+                        {
+                            "id": "co2",
+                            "description": "Change company details",
+                            "link": "https://example.com/change-company-details"
+                        }
+                    ]
+                }
+            ],
+            agent: [
+                {
+                    "category": "Agent Services",
+                    "items": [
+                        {
+                            "id": "ag1",
+                            "description": "Become a registered agent",
+                            "link": "https://example.com/become-agent"
+                        },
+                        {
+                            "id": "ag2",
+                            "description": "Agent responsibilities",
+                            "link": "https://example.com/agent-responsibilities"
+                        }
+                    ]
+                }
+            ],
+            businessExtra: {
+                "extraLinks": [
+                    {
+                        "name": "Business Registration Portal",
+                        "link": "https://example.com/business-portal"
+                    },
+                    {
+                        "name": "Business Name Search",
+                        "link": "https://example.com/business-search"
+                    }
+                ]
+            },
+            companyExtra: {
+                "extraLinks": [
+                    {
+                        "name": "Company Registration Portal",
+                        "link": "https://example.com/company-portal"
+                    },
+                    {
+                        "name": "ASIC Connect",
+                        "link": "https://example.com/asic-connect"
+                    }
+                ]
+            },
+            agentExtra: {
+                "extraLinks": [
+                    {
+                        "name": "Agent Portal",
+                        "link": "https://example.com/agent-portal"
+                    },
+                    {
+                        "name": "Agent Training",
+                        "link": "https://example.com/agent-training"
+                    }
+                ]
+            }
+        };
+
+        async function loadJSON(filename) {
+            // Simulate loading JSON files based on filename
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    switch(filename) {
+                        case 'common.json':
+                            resolve(sampleData.common);
+                            break;
+                        case 'business-links.json':
+                            resolve(sampleData.business);
+                            break;
+                        case 'company-links.json':
+                            resolve(sampleData.company);
+                            break;
+                        case 'agent-links.json':
+                            resolve(sampleData.agent);
+                            break;
+                        case 'business-extra.json':
+                            resolve(sampleData.businessExtra);
+                            break;
+                        case 'company-extra.json':
+                            resolve(sampleData.companyExtra);
+                            break;
+                        case 'agent-extra.json':
+                            resolve(sampleData.agentExtra);
+                            break;
+                        default:
+                            resolve([]);
+                    }
+                }, 100); // Simulate network delay
+            });
         }
 
         function renderGuidelines(guidelines) {
@@ -361,6 +507,7 @@
 
         function renderExtraLinks(extraLinks) {
             const container = document.querySelector('#extra-links');
+            container.innerHTML = ''; // Clear previous links
             extraLinks.forEach(link => {
                 const li = document.createElement('li');
                 li.innerHTML = `<a href="${link.link}" target="_blank">${link.name}</a>`;
@@ -368,12 +515,26 @@
             });
         }
 
-        function renderCommonLinks(commonLinks) {
+        function renderCommonLinks(commonData) {
             const container = document.querySelector('#common-links');
-            commonLinks.forEach(link => {
-                const li = document.createElement('li');
-                li.innerHTML = `<a href="${link.link}" target="_blank">${link.name}</a>`;
-                container.appendChild(li);
+            container.innerHTML = ''; // Clear previous links
+            
+            // Convert the common data structure to display all items as links
+            commonData.forEach(category => {
+                // Add category as a divider/header
+                const categoryHeader = document.createElement('li');
+                categoryHeader.innerHTML = `<strong style="color: #f39c12; font-size: 13px; display: block; margin-bottom: 8px;">${category.category}</strong>`;
+                categoryHeader.style.borderBottom = '1px solid #4a5c6b';
+                categoryHeader.style.paddingBottom = '5px';
+                categoryHeader.style.marginBottom = '10px';
+                container.appendChild(categoryHeader);
+
+                // Add all items under this category
+                category.items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="${item.link}" target="_blank">${item.description}</a>`;
+                    container.appendChild(li);
+                });
             });
         }
 
@@ -499,7 +660,7 @@
         async function loadCommonData() {
             try {
                 const commonData = await loadJSON('common.json');
-                renderCommonLinks(commonData.commonLinks);
+                renderCommonLinks(commonData); // Fixed: pass commonData directly, not commonData.commonLinks
             } catch (error) {
                 console.error('Error loading common data:', error);
             }
