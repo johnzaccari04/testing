@@ -367,24 +367,14 @@ body {
 
     .main-content {
         margin: 0;
-        padding: 15px;
+        padding: 10px;
         max-width: 100%;
-    }
-
-    #selection-bar {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-
-    .buttons {
-        width: 100%;
-        justify-content: center;
     }
 
     .guideline-container {
         border-radius: 15px;
-        padding: 20px;
+        padding: 15px;
+        margin: 5px 10px;
     }
 
     .guideline-item,
@@ -411,7 +401,7 @@ body {
     </div>
 
     <div class="main-content">
-        <!-- Combined top bar with selector, mode, and buttons -->
+        <!-- Dropdown selector + mode display -->
         <div id="selection-bar">
             <div>
                 <label for="sourceSelector" style="font-size: 16px; font-weight: bold;">I'm sending guidelines to:</label>
@@ -422,14 +412,16 @@ body {
                 </select>
             </div>
             <div id="modeDisplay">Business Name Mode</div>
-            <div class="buttons">
-                <button id="copyButton" aria-label="Copy selected guidelines">Copy Selected Guidelines</button>
-                <button id="clearButton" aria-label="Clear selection">Clear Selection</button>
-            </div>
         </div>
 
         <!-- Guidelines will load here - now with focused circular container -->
         <div class="guideline-container"></div>
+
+        <!-- Copy/Clear buttons -->
+        <div class="buttons">
+            <button id="copyButton" aria-label="Copy selected guidelines">Copy Selected Guidelines</button>
+            <button id="clearButton" aria-label="Clear selection">Clear Selection</button>
+        </div>
     </div>
 
     <div class="right-pane">
