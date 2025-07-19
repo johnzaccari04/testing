@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +19,7 @@
         }
 
         .left-pane {
-            width: 220px; /* Increased width for extra links pane */
+            width: 220px;
             background-color: #2c3e50;
             color: #fff;
             padding: 20px;
@@ -61,13 +60,55 @@
             color: #3498db;
         }
 
+        .right-pane {
+            width: 220px;
+            background-color: #34495e;
+            color: #fff;
+            padding: 20px;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .right-pane h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #e67e22;
+            text-align: center;
+        }
+
+        .right-pane ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .right-pane ul li {
+            margin-bottom: 15px;
+        }
+
+        .right-pane ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .right-pane ul li a:hover {
+            background-color: #2c3e50;
+            color: #e67e22;
+        }
+
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            max-width: 800px; /* Increased width for center pane */
-            margin: 0 auto; /* Center the guidelines pane */
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .guideline-container {
@@ -136,7 +177,7 @@
         }
 
         .guideline-item.copying {
-            background-color: #4CAF50; /* Green background */
+            background-color: #4CAF50;
             transition: background-color 0.5s ease;
         }
 
@@ -147,7 +188,6 @@
             background-color: #f1f1f1;
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
         }
-
 
         .buttons button {
             padding: 10px 20px;
@@ -230,13 +270,11 @@
         }
 
         .no-select {
-            user-select: none;       /* Standard */
-            -webkit-user-select: none;  /* Safari */
-            -moz-user-select: none;     /* Firefox */
-            -ms-user-select: none;      /* IE/Edge */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
-
-
     </style>
 </head>
 <body>
@@ -252,7 +290,7 @@
                 <label for="sourceSelector" style="font-size: 16px; font-weight: bold;">I'm sending guidelines to:</label>
                <select id="sourceSelector" aria-label="Select source type" style="
                     font-size: 16px;
-                    padding: 10px 40px 10px 14px; /* More padding on right for arrow */
+                    padding: 10px 40px 10px 14px;
                     margin-left: 10px;
                     border-radius: 6px;
                     border: 1px solid #ccc;
@@ -282,6 +320,11 @@
             <button id="copyButton" aria-label="Copy selected guidelines">Copy Selected Guidelines</button>
             <button id="clearButton" aria-label="Clear selection">Clear Selection</button>
         </div>
+    </div>
+
+    <div class="right-pane">
+        <h2>Common Links</h2>
+        <ul id="common-links"></ul>
     </div>
 
     <!-- Toast message -->
@@ -319,6 +362,15 @@
         function renderExtraLinks(extraLinks) {
             const container = document.querySelector('#extra-links');
             extraLinks.forEach(link => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="${link.link}" target="_blank">${link.name}</a>`;
+                container.appendChild(li);
+            });
+        }
+
+        function renderCommonLinks(commonLinks) {
+            const container = document.querySelector('#common-links');
+            commonLinks.forEach(link => {
                 const li = document.createElement('li');
                 li.innerHTML = `<a href="${link.link}" target="_blank">${link.name}</a>`;
                 container.appendChild(li);
@@ -424,53 +476,61 @@
         }
 
         async function loadData(type) {
-    try {
-        const guidelines = await loadJSON(`${type}-links.json`);
-        const extraData = await loadJSON(`${type}-extra.json`);
+            try {
+                const guidelines = await loadJSON(`${type}-links.json`);
+                const extraData = await loadJSON(`${type}-extra.json`);
 
-        const guidelineContainer = document.querySelector('.guideline-container');
-        guidelineContainer.innerHTML = ''; // Clear previous content
-        renderGuidelines(guidelines);
+                const guidelineContainer = document.querySelector('.guideline-container');
+                guidelineContainer.innerHTML = ''; // Clear previous content
+                renderGuidelines(guidelines);
 
-        const extraLinksContainer = document.querySelector('#extra-links');
-        extraLinksContainer.innerHTML = ''; // Clear previous links
-        renderExtraLinks(extraData.extraLinks);
+                const extraLinksContainer = document.querySelector('#extra-links');
+                extraLinksContainer.innerHTML = ''; // Clear previous links
+                renderExtraLinks(extraData.extraLinks);
 
-        document.querySelectorAll('.guideline-item input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', handleCheckboxChange);
-        });
-    } catch (error) {
-        console.error(`Error loading data for ${type}:`, error);
-    }
-}
+                document.querySelectorAll('.guideline-item input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', handleCheckboxChange);
+                });
+            } catch (error) {
+                console.error(`Error loading data for ${type}:`, error);
+            }
+        }
 
-function handleSelectionChange() {
-    const selectedType = document.getElementById('sourceSelector').value;
-    selectedOrder = [];
-    handleClear();
-    loadData(selectedType);
+        async function loadCommonData() {
+            try {
+                const commonData = await loadJSON('common.json');
+                renderCommonLinks(commonData.commonLinks);
+            } catch (error) {
+                console.error('Error loading common data:', error);
+            }
+        }
 
-    const modeDisplay = document.getElementById('modeDisplay');
-    if (selectedType === 'business') {
-        modeDisplay.textContent = "Business Name Mode";
-    } else if (selectedType === 'company') {
-        modeDisplay.textContent = "Company Mode";
-    } else if (selectedType === 'agent') {
-        modeDisplay.textContent = "Agent Mode";
-    }
-}
+        function handleSelectionChange() {
+            const selectedType = document.getElementById('sourceSelector').value;
+            selectedOrder = [];
+            handleClear();
+            loadData(selectedType);
 
+            const modeDisplay = document.getElementById('modeDisplay');
+            if (selectedType === 'business') {
+                modeDisplay.textContent = "Business Name Mode";
+            } else if (selectedType === 'company') {
+                modeDisplay.textContent = "Company Mode";
+            } else if (selectedType === 'agent') {
+                modeDisplay.textContent = "Agent Mode";
+            }
+        }
 
-function init() {
-    document.getElementById('sourceSelector').addEventListener('change', handleSelectionChange);
-    document.getElementById('copyButton').addEventListener('click', handleCopy);
-    document.getElementById('clearButton').addEventListener('click', handleClear);
+        function init() {
+            document.getElementById('sourceSelector').addEventListener('change', handleSelectionChange);
+            document.getElementById('copyButton').addEventListener('click', handleCopy);
+            document.getElementById('clearButton').addEventListener('click', handleClear);
 
-    loadData('business'); // Default load
-}
+            loadData('business'); // Default load
+            loadCommonData(); // Load common links once on initialization
+        }
 
-init();
-
+        init();
     </script>
 </body>
 </html>
