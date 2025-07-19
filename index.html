@@ -58,50 +58,50 @@ body {
 }
 
 .left-pane ul li, .right-pane ul li {
-    margin-bottom: 10px; /* Reduced vertical space */
+    margin-bottom: 10px;
     padding-left: 8px;
     padding-right: 8px;
     line-height: 1.3em;
 }
 
-/* LINKS IN LEFT PANE - subtle background and better contrast */
+/* LINKS IN LEFT PANE */
 .left-pane ul li a {
-    color: #ecf0f1; /* lighter text */
+    color: #ecf0f1;
     text-decoration: none;
     font-size: 14px;
     display: block;
     padding: 8px 12px;
     border-radius: 8px;
-    background-color: rgba(52, 152, 219, 0.2); /* subtle blue background */
+    background-color: rgba(52, 152, 219, 0.2);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .left-pane ul li a:hover {
-    background-color: #3498db; /* stronger blue on hover */
+    background-color: #3498db;
     color: white;
 }
 
-/* LINKS IN RIGHT PANE - subtle background and improved contrast */
+/* LINKS IN RIGHT PANE */
 .right-pane ul li a {
-    color: #f5d6a0; /* softer pale orange text for better contrast */
+    color: #f0b27a;
     text-decoration: none;
     font-size: 14px;
     display: block;
     padding: 8px 12px;
     border-radius: 8px;
-    background-color: rgba(230, 126, 34, 0.2); /* subtle orange background */
+    background-color: rgba(230, 126, 34, 0.2);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .right-pane ul li a:hover {
-    background-color: #e67e22; /* stronger orange on hover */
+    background-color: #e67e22;
     color: white;
 }
 
 /* TOP SELECTION BAR */
 #selection-bar {
     padding: 20px;
-    background-color: #e0e0e0; /* Darker than before */
+    background-color: #e0e0e0;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
@@ -109,12 +109,48 @@ body {
     border-radius: 8px;
 }
 
+/* SELECT DROPDOWN */
+#sourceSelector {
+    font-size: 16px;
+    padding: 10px 40px 10px 14px;
+    margin-left: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    appearance: none;
+    background-image: url('data:image/svg+xml,%3Csvg width=\'16\' height=\'10\' viewBox=\'0 0 16 10\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M1 1l7 7 7-7\' stroke=\'%233498db\' stroke-width=\'2\' fill=\'none\' stroke-linecap=\'round\'/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+#sourceSelector:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
+}
+
+/* Mode display */
+#modeDisplay {
+    padding: 6px 12px;
+    border-radius: 20px;
+    background-color: #c8e6c9;
+    color: #388e3c;
+    border: 1px solid #a5d6a7;
+    font-weight: bold;
+    font-size: 14px;
+    user-select: none;
+}
+
 /* BOTTOM BUTTONS */
 .buttons {
     text-align: center;
     margin-top: 10px;
     padding: 10px;
-    background-color: #e0e0e0; /* Darker background */
+    background-color: #e0e0e0;
     position: sticky;
     bottom: 0;
     z-index: 5;
@@ -183,7 +219,7 @@ body {
     overflow-y: auto;
 }
 
-/* CATEGORY TITLES - max width reduced by ~10% */
+/* CATEGORY TITLES */
 .category-title {
     font-size: 22px;
     font-weight: bold;
@@ -197,30 +233,28 @@ body {
     text-overflow: ellipsis;
 }
 
-/* GUIDELINE ITEM CARD - max width reduced by ~10%, less vertical margin */
+/* GUIDELINE ITEM CARD */
 .guideline-item {
     display: flex;
     align-items: center;
     gap: 14px;
-    margin: 0 auto 10px auto; /* Less bottom margin */
+    margin: 0 auto 10px auto;
     padding: 12px 16px;
     font-size: 14px;
     border-radius: 14px;
     border: 1px solid #ddd;
-    background-color: #f0f0f0; /* lighter shade than buttons background */
+    background-color: #f0f0f0;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     max-width: 65%;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-/* Hover uses same as buttons background (#e0e0e0) */
 .guideline-item:hover {
     background-color: #e0e0e0;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
-/* Remove background from label and link text */
 .guideline-item label {
     flex: 1;
     color: #333;
@@ -256,11 +290,11 @@ body {
     outline-offset: 2px;
 }
 
-/* Copy animation background with lighter green */
+/* Copy animation */
 .guideline-item.copying {
-    background-color: #81c784; /* lighter green */
+    background-color: #81c784;
     box-shadow: 0 0 12px #81c784aa;
-    transition: background-color 0.5s ease;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 /* Selection number circle */
@@ -276,7 +310,7 @@ body {
     display: none;
 }
 
-/* TOAST NOTIFICATION - top right corner */
+/* TOAST NOTIFICATION */
 .toast {
     visibility: hidden;
     min-width: 250px;
@@ -306,41 +340,6 @@ body {
     user-select: none;
 }
 
-/* SELECT DROPDOWN */
-#sourceSelector {
-    appearance: none;
-    background-color: #f9f9f9;
-    background-image: url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23999' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 10px 7px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 10px 40px 10px 14px;
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#sourceSelector:focus {
-    outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
-}
-
-/* Mode display with lighter green */
-#modeDisplay {
-    padding: 6px 12px;
-    border-radius: 20px;
-    background-color: #c8e6c9; /* lighter green background */
-    color: #388e3c; /* darker green text */
-    border: 1px solid #a5d6a7;
-    font-weight: bold;
-    font-size: 14px;
-    user-select: none;
-}
-
 /* Prevent text selection */
 .no-select {
     user-select: none;
@@ -359,11 +358,13 @@ body {
     .left-pane, .right-pane {
         width: 100%;
         height: auto;
+        padding: 15px;
         box-shadow: none;
     }
 
     .main-content {
         margin: 0;
+        padding: 0 15px;
         max-width: 100%;
         border-radius: 0;
         box-shadow: none;
@@ -375,7 +376,15 @@ body {
     }
 }
 
-
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
 </style>
 </head>
 <body>
@@ -386,31 +395,16 @@ body {
 
     <div class="main-content">
         <!-- Dropdown selector + mode display -->
-        <div id="selection-bar" style="padding: 20px; background-color: #f1f1f1; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+        <div id="selection-bar">
             <div>
                 <label for="sourceSelector" style="font-size: 16px; font-weight: bold;">I'm sending guidelines to:</label>
-               <select id="sourceSelector" aria-label="Select source type" style="
-                    font-size: 16px;
-                    padding: 10px 40px 10px 14px;
-                    margin-left: 10px;
-                    border-radius: 6px;
-                    border: 1px solid #ccc;
-                    background-color: #fff;
-                    appearance: none;
-                    background-image: url('data:image/svg+xml,%3Csvg width=\'16\' height=\'10\' viewBox=\'0 0 16 10\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M1 1l7 7 7-7\' stroke=\'%233498db\' stroke-width=\'2\' fill=\'none\' stroke-linecap=\'round\'/%3E%3C/svg%3E');
-                    background-repeat: no-repeat;
-                    background-position: right 14px center;
-                    background-size: 16px 10px;
-                    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-                    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-                    cursor: pointer;
-                ">
+                <select id="sourceSelector" aria-label="Select source type">
                     <option value="business">Business Name</option>
                     <option value="company">Company</option>
                     <option value="agent">Agent</option>
                 </select>
             </div>
-            <div id="modeDisplay" style="font-size: 16px; color: green; font-weight: bold;">Business Name Mode</div>
+            <div id="modeDisplay">Business Name Mode</div>
         </div>
 
         <!-- Guidelines will load here -->
